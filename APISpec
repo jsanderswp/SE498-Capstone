@@ -15,5 +15,5 @@ Spec: Planet Info API
   If a planet name does not exist, the API returns a 404 error message.
 
 4. Non-Functional Requirements
-  Requests should complete in under 1 second under normal load.
+  Requests should complete in a reasonable time.
   API responses must be valid JSON and consistent across endpoints.
