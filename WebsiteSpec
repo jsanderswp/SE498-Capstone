@@ -1,0 +1,17 @@
+Overview/Purpose
+  A user can sign in/up to their account, search for a planet in the Star Trek universe, and receive weather information for that planet. If an invalid planet is entered, the user will be notified. There should be a visual transition when a planet is selected, with a background image of that planet.
+
+Scope
+  Included: User registration, User login/logout, Planet search functionality, planet detail pages, weather and planet information display, visual transitions and planet-specific background
+  Excluded: Password reset, multi-factor authentication, social features (comments, sharing)
+
+Functional Requirements
+  Provide the user a way to sign up or sign in, using email, username, and password.
+  When a planet is entered into the search bar on the home page, planets from the database will be shown. They will be able to be selected to transition the page to a page for that planet.
+  All weather information, including the planet’s solar system, maximum and minimum temperatures, will be displayed along with a picture of the planet
+  The user will be able to be able to redirect back to the homepage with one click, no matter what page they are on.
+
+Non-functional requirements
+  A fully loaded page of the selected planet’s information should load in less than 5 seconds from when the planet is clicked.
+  Passwords must be encrypted
+  The system should support atleast 20 concurrent users
