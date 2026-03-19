@@ -7,11 +7,6 @@ Spec: Planet Info API
     Get a list of planets
     Get one planet’s info (name, solar system, min/max temp)
     Basic error handling (planet not found)
-  Excluded:
-    Humidity, wind, forecasts
-    Canon/source tracking
-    User accounts / permissions
-    Admin create/update/delete endpoints
 
 3. Functional Requirements
   The API provides an endpoint to return all planets.
