@@ -25,7 +25,6 @@ This API will let the app pull planet temperature range data from the database t
 - Creating, updating, or deleting planets
 - User authentication and authorization
 - Advanced filtering or sorting
-- Pagination
 
 ## 3. Functional Requirements
 1. The API provides an endpoint to return all planets.
