@@ -1,7 +1,7 @@
 # Website Spec: Star Trek Planet Weather App
 
 ## 1. Overview / Purpose
-This website allows users to create an account, sign in, search for planets in the Star Trek universe, and view weather and planet details for a selected planet.
+This website allows users to create an account, sign in, search for planets in the Star Trek universe, and view weather and planet details for a selected planet. The user is also allowed to save planets to their account.
 
 When a user selects a planet, the site should transition to that planet’s detail page and display a background image related to the selected planet. If a user searches for a planet that does not exist, the website should notify them clearly.
 
@@ -13,8 +13,8 @@ When a user selects a planet, the site should transition to that planet’s deta
 - Planet search functionality
 - Planet detail pages
 - Weather and planet information display
-- Visual transitions when a planet is selected
 - Planet-specific background images
+- User saving planets
 
 ### Excluded
 - Password reset
