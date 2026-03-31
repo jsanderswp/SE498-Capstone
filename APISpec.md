@@ -8,6 +8,7 @@ No authorization is required for this API in the current version.
 - **Solar System**: The planetary system the planet belongs to.
 - **min_temp**: The minimum recorded or defined temperature for the planet.
 - **max_temp**: The maximum recorded or defined temperature for the planet.
+- **description**: The description of the planet.
 - **Endpoint**: A specific API route that the client can call to retrieve data.
 - **JSON**: JavaScript Object Notation, the response format used by this API.
 
@@ -29,7 +30,7 @@ This API will let the app pull planet temperature range data from the database t
 ## 3. Functional Requirements
 1. The API provides an endpoint to return all planets.
 2. The API provides an endpoint to return one planet by name.
-3. Each planet record includes: `name`, `solar_system`, `max_temp`, `min_temp`.
+3. Each planet record includes: `name`, `solar_system`, `max_temp`, `min_temp`, `desc`.
 4. If a planet name does not exist, the API returns a 404 error message.
 
 ## 4. Non-Functional Requirements
