@@ -1,0 +1,25 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #0b1020;
+    color: white;
+}
+
+.custom-navbar {
+    background-color: #111827;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    min-height: 72px;
+}
+
+.app-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: white !important;
+}
+
+.hero-section {
+    min-height: calc(100vh - 72px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

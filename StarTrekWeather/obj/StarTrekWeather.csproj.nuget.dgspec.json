@@ -1,26 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "/Users/jsanderswp/RiderProjects/SE498-Capstone/StarTrekWeather/StarTrekWeather.csproj": {}
+    "/Users/danny/SE498-Capstone/StarTrekWeather/StarTrekWeather.csproj": {}
   },
   "projects": {
-    "/Users/jsanderswp/RiderProjects/SE498-Capstone/StarTrekWeather/StarTrekWeather.csproj": {
+    "/Users/danny/SE498-Capstone/StarTrekWeather/StarTrekWeather.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/jsanderswp/RiderProjects/SE498-Capstone/StarTrekWeather/StarTrekWeather.csproj",
+        "projectUniqueName": "/Users/danny/SE498-Capstone/StarTrekWeather/StarTrekWeather.csproj",
         "projectName": "StarTrekWeather",
-        "projectPath": "/Users/jsanderswp/RiderProjects/SE498-Capstone/StarTrekWeather/StarTrekWeather.csproj",
-        "packagesPath": "/Users/jsanderswp/.nuget/packages/",
-        "outputPath": "/Users/jsanderswp/RiderProjects/SE498-Capstone/StarTrekWeather/obj/",
+        "projectPath": "/Users/danny/SE498-Capstone/StarTrekWeather/StarTrekWeather.csproj",
+        "packagesPath": "/Users/danny/.nuget/packages/",
+        "outputPath": "/Users/danny/SE498-Capstone/StarTrekWeather/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/jsanderswp/.nuget/NuGet/NuGet.Config"
+          "/Users/danny/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
         ],
         "sources": {
-          "/opt/homebrew/Cellar/dotnet/10.0.105/libexec/library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -69,7 +68,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/opt/homebrew/Cellar/dotnet/10.0.105/libexec/sdk/10.0.105/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/10.0.102/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.AspNetCore": "(,10.0.32767]",
             "Microsoft.AspNetCore.Antiforgery": "(,10.0.32767]",
