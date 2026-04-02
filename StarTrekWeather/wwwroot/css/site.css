@@ -1,25 +1,326 @@
+/* =============================================
+   TREKTEMP — SITE CSS
+   Starfleet Meteorological Division
+   ============================================= */
+
+:root {
+    --navy-deep: #020817;
+    --navy-mid: #0b1632;
+    --lcars-gold: #f5a623;
+    --lcars-blue: #4fc3f7;
+    --lcars-red: #e57373;
+    --text-primary: #e8f4fd;
+    --text-muted: rgba(200, 225, 245, 0.55);
+    --nav-height: 72px;
+    --nav-bg: #ffffff;
+    --nav-text: #111827;
+    --nav-border: rgba(0, 0, 0, 0.08);
+    --glass-border: rgba(79, 195, 247, 0.18);
+    /* Figma lighter steel-blue hero tones */
+    --hero-top: #4a7fa5;
+    --hero-mid: #2a5f8a;
+    --hero-deep: #0d3156;
+}
+
+/* ---- Reset & Base ---- */
+*, *::before, *::after { box-sizing: border-box; }
+
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #0b1020;
-    color: white;
+    font-family: 'Exo 2', sans-serif;
+    background-color: var(--navy-deep);
+    color: var(--text-primary);
+    min-height: 100vh;
+    overflow-x: hidden;
 }
 
+/* ---- NAVBAR ---- */
 .custom-navbar {
-    background-color: #111827;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-    min-height: 72px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    height: var(--nav-height);
+    background: var(--nav-bg);
+    border-bottom: 1px solid var(--nav-border);
+    box-shadow: 0 1px 12px rgba(0, 0, 0, 0.08);
 }
 
+.navbar-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* ---- Branding ---- */
 .app-title {
+    text-decoration: none;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 900;
     font-size: 1.5rem;
-    font-weight: 700;
-    color: white !important;
+    letter-spacing: 0.06em;
+    line-height: 1;
 }
 
+.title-trek {
+    color: var(--nav-text);
+}
+
+.title-temp {
+    color: var(--lcars-gold);
+}
+
+/* LCARS accent line under brand */
+.app-title::after {
+    content: '';
+    display: block;
+    height: 2px;
+    background: linear-gradient(90deg, var(--lcars-gold), transparent);
+    margin-top: 3px;
+    border-radius: 2px;
+}
+
+/* ---- Nav Buttons ---- */
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.nav-btn {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 8px 20px;
+    border-radius: 3px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.nav-btn-ghost {
+    color: var(--nav-text);
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    background: transparent;
+}
+
+.nav-btn-ghost:hover {
+    border-color: var(--hero-mid);
+    color: var(--hero-mid);
+    background: rgba(42, 95, 138, 0.07);
+}
+
+.nav-btn-primary {
+    color: var(--navy-deep);
+    background: var(--lcars-gold);
+    border: 1px solid var(--lcars-gold);
+}
+
+.nav-btn-primary:hover {
+    background: #ffc04d;
+    border-color: #ffc04d;
+    color: var(--navy-deep);
+    box-shadow: 0 0 20px rgba(245, 166, 35, 0.4);
+}
+
+/* ---- HERO SECTION ---- */
 .hero-section {
-    min-height: calc(100vh - 72px);
+    position: relative;
+    min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
+    text-align: center;
+    overflow: hidden;
+
+    /* Lighter steel-blue matching Figma */
+    background:
+            radial-gradient(ellipse at 65% 45%, rgba(100, 160, 210, 0.55) 0%, transparent 55%),
+            radial-gradient(ellipse at 20% 75%, rgba(30, 80, 130, 0.4) 0%, transparent 50%),
+            linear-gradient(170deg, var(--hero-top) 0%, var(--hero-mid) 40%, var(--hero-deep) 100%);
+}
+
+/* Starfield overlay — pure CSS dots */
+.hero-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+            radial-gradient(1px 1px at 10% 15%, rgba(255,255,255,0.7) 0%, transparent 100%),
+            radial-gradient(1px 1px at 25% 40%, rgba(255,255,255,0.5) 0%, transparent 100%),
+            radial-gradient(1px 1px at 40% 10%, rgba(255,255,255,0.6) 0%, transparent 100%),
+            radial-gradient(1.5px 1.5px at 55% 60%, rgba(255,255,255,0.4) 0%, transparent 100%),
+            radial-gradient(1px 1px at 70% 25%, rgba(255,255,255,0.7) 0%, transparent 100%),
+            radial-gradient(1px 1px at 80% 75%, rgba(255,255,255,0.5) 0%, transparent 100%),
+            radial-gradient(1px 1px at 90% 45%, rgba(255,255,255,0.6) 0%, transparent 100%),
+            radial-gradient(1px 1px at 15% 70%, rgba(255,255,255,0.5) 0%, transparent 100%),
+            radial-gradient(1px 1px at 60% 85%, rgba(255,255,255,0.4) 0%, transparent 100%),
+            radial-gradient(1px 1px at 35% 55%, rgba(255,255,255,0.6) 0%, transparent 100%),
+            radial-gradient(1px 1px at 85% 20%, rgba(255,255,255,0.5) 0%, transparent 100%),
+            radial-gradient(1px 1px at 5% 90%, rgba(255,255,255,0.6) 0%, transparent 100%),
+            radial-gradient(1.5px 1.5px at 48% 35%, rgba(200,230,255,0.8) 0%, transparent 100%),
+            radial-gradient(1px 1px at 72% 62%, rgba(255,255,255,0.5) 0%, transparent 100%),
+            radial-gradient(1px 1px at 92% 88%, rgba(255,255,255,0.4) 0%, transparent 100%);
+    pointer-events: none;
+}
+
+/* Nebula glow */
+.hero-section::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+            radial-gradient(ellipse 55% 40% at 65% 45%, rgba(180, 220, 255, 0.2) 0%, transparent 70%),
+            radial-gradient(ellipse 35% 50% at 50% 50%, rgba(80, 140, 200, 0.12) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+/* ---- Hero Content ---- */
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 620px;
+    padding: 0 24px;
+    animation: fadeUp 0.9s ease both;
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.hero-eyebrow {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    color: var(--lcars-gold);
+    margin: 0 0 16px;
+    opacity: 0.85;
+}
+
+.hero-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(2.8rem, 7vw, 5rem);
+    font-weight: 900;
+    line-height: 1.05;
+    margin: 0 0 20px;
+    letter-spacing: -0.01em;
+    color: var(--text-primary);
+    text-shadow: 0 0 60px rgba(255, 255, 255, 0.2), 0 2px 20px rgba(0,0,0,0.3);
+}
+
+.hero-subtitle {
+    font-family: 'Exo 2', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.85);
+    margin: 0 0 36px;
+    letter-spacing: 0.03em;
+}
+
+/* ---- Search Bar ---- */
+.search-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin: 0 auto 24px;
+    max-width: 480px;
+}
+
+.search-icon {
+    position: absolute;
+    left: 18px;
+    width: 17px;
+    height: 17px;
+    color: var(--lcars-blue);
+    opacity: 0.7;
+    pointer-events: none;
+    flex-shrink: 0;
+}
+
+.planet-search {
+    width: 100%;
+    padding: 15px 48px 15px 48px;
+    background: rgba(255, 255, 255, 0.18);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 50px;
+    color: var(--text-primary);
+    font-family: 'Exo 2', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    outline: none;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+    backdrop-filter: blur(8px);
+}
+
+.planet-search::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.planet-search:focus {
+    border-color: rgba(255, 255, 255, 0.75);
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1), 0 0 25px rgba(255, 255, 255, 0.08);
+}
+
+.search-clear {
+    position: absolute;
+    right: 16px;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s ease, color 0.2s ease;
+    padding: 4px 6px;
+    line-height: 1;
+}
+
+.search-clear:hover {
+    color: var(--text-primary);
+}
+
+/* ---- Quick Links ---- */
+.quick-links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.quick-label {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    color: var(--text-muted);
+    margin-right: 4px;
+}
+
+.quick-tag {
+    font-family: 'Exo 2', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--lcars-blue);
+    text-decoration: none;
+    padding: 4px 14px;
+    border: 1px solid rgba(79, 195, 247, 0.25);
+    border-radius: 50px;
+    transition: all 0.2s ease;
+    letter-spacing: 0.03em;
+}
+
+.quick-tag:hover {
+    background: rgba(79, 195, 247, 0.12);
+    border-color: rgba(79, 195, 247, 0.6);
+    color: var(--text-primary);
 }

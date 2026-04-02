@@ -4,5 +4,33 @@
     ViewData["Title"] = "Home";
 }
 
-<h1>Star Trek Weather</h1>
-<p>Home page works.</p>
+<section class="hero-section">
+    <div class="hero-content">
+        <p class="hero-eyebrow">STARFLEET METEOROLOGICAL DIVISION</p>
+        <h1 class="hero-title">Starfleet<br>Weather</h1>
+        <p class="hero-subtitle">Explore atmospheric conditions across the galaxy.</p>
+
+        <div class="search-wrapper">
+            <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+            <input type="text" class="planet-search" placeholder="Search a planet..." id="planetSearch" autocomplete="off" />
+            <button class="search-clear" id="clearSearch" aria-label="Clear search">&#x2715;</button>
+        </div>
+    </div>
+</section>
+
+<script>
+    const input = document.getElementById('planetSearch');
+    const clearBtn = document.getElementById('clearSearch');
+
+    input.addEventListener('input', () => {
+        clearBtn.style.opacity = input.value.length > 0 ? '1' : '0';
+    });
+
+    clearBtn.addEventListener('click', () => {
+        input.value = '';
+        clearBtn.style.opacity = '0';
+        input.focus();
+    });
+</script>
