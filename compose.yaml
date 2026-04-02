@@ -1,0 +1,25 @@
+version: "3.9"
+
+services:
+  web-db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: K0rmaVindal00!!
+      POSTGRES_DB: StarTrekWeatherDB
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
+  web:
+    build: ./StarTrekWeather
+    depends_on:
+      - web-db
+    environment:
+      ConnectionStrings__DefaultConnection: "Host=db;Port=5432;Database=StarTrekWeatherDB;Username=K0rmaVindal00!!;Password=postgres123"
+    ports:
+      - "5001:80"
+
+volumes:
+  pg_data:
