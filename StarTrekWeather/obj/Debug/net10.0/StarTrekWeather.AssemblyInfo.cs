@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("StarTrekWeather")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+55eddc4814af8daf3246ac282b67759cf039a74a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0bc45ffd00012f82d8348b73a1a4a616c879e31e")]
 [assembly: System.Reflection.AssemblyProductAttribute("StarTrekWeather")]
 [assembly: System.Reflection.AssemblyTitleAttribute("StarTrekWeather")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

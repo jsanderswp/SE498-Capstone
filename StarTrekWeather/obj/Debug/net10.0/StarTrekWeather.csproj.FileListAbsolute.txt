@@ -24,7 +24,7 @@
 /Users/danny/SE498-Capstone/StarTrekWeather/obj/Debug/net10.0/rjsmrazor.dswa.cache.json
 /Users/danny/SE498-Capstone/StarTrekWeather/obj/Debug/net10.0/rjsmcshtml.dswa.cache.json
 /Users/danny/SE498-Capstone/StarTrekWeather/obj/Debug/net10.0/scopedcss/bundle/StarTrekWeather.styles.css
-/Users/danny/SE498-Capstone/StarTrekWeather/obj/Debug/net10.0/compressed/pzlrmjgz17-{0}-tb3m7zewn3-tb3m7zewn3.gz
+/Users/danny/SE498-Capstone/StarTrekWeather/obj/Debug/net10.0/compressed/pzlrmjgz17-{0}-tnz5e3byec-tnz5e3byec.gz
 /Users/danny/SE498-Capstone/StarTrekWeather/obj/Debug/net10.0/staticwebassets.build.json
 /Users/danny/SE498-Capstone/StarTrekWeather/obj/Debug/net10.0/staticwebassets.build.json.cache
 /Users/danny/SE498-Capstone/StarTrekWeather/obj/Debug/net10.0/staticwebassets.development.json
