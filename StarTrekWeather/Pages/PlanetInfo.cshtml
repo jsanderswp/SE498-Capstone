@@ -1,0 +1,24 @@
+@page
+@model PlanetInfoModel
+@{
+    ViewData["Title"] = "Planet Info";
+}
+
+<section class="planet-info-page">
+    <div class="planet-info-shell">
+        <div class="planet-info-card">
+            <div class="planet-info-top">
+                <div class="planet-info-heading">
+                    <p class="planet-info-label">Planet Info</p>
+                    <h1 class="planet-info-name">@Model.PlanetName</h1>
+                </div>
+            </div>
+
+            <div class="planet-info-bottom">
+                <p><strong>Mean Temp:</strong> @Model.MeanTemp</p>
+                <p><strong>Atmospheric Pressure:</strong> @Model.AtmosphericPressure</p>
+                <p><strong>Solar System:</strong> @Model.SolarSystem</p>
+            </div>
+        </div>
+    </div>
+</section>

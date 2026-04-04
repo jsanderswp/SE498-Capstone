@@ -16,7 +16,6 @@
     --nav-text: #111827;
     --nav-border: rgba(0, 0, 0, 0.08);
     --glass-border: rgba(79, 195, 247, 0.18);
-    /* Figma lighter steel-blue hero tones */
     --hero-top: #4a7fa5;
     --hero-mid: #2a5f8a;
     --hero-deep: #0d3156;
@@ -138,15 +137,12 @@ body {
     justify-content: center;
     text-align: center;
     overflow: hidden;
-
-    /* Lighter steel-blue matching Figma */
     background:
             radial-gradient(ellipse at 65% 45%, rgba(100, 160, 210, 0.55) 0%, transparent 55%),
             radial-gradient(ellipse at 20% 75%, rgba(30, 80, 130, 0.4) 0%, transparent 50%),
             linear-gradient(170deg, var(--hero-top) 0%, var(--hero-mid) 40%, var(--hero-deep) 100%);
 }
 
-/* Starfield overlay — pure CSS dots */
 .hero-section::before {
     content: '';
     position: absolute;
@@ -170,7 +166,6 @@ body {
     pointer-events: none;
 }
 
-/* Nebula glow */
 .hero-section::after {
     content: '';
     position: absolute;
@@ -323,4 +318,110 @@ body {
     background: rgba(79, 195, 247, 0.12);
     border-color: rgba(79, 195, 247, 0.6);
     color: var(--text-primary);
+}
+
+/* =============================================
+   PLANET INFO PAGE
+   ============================================= */
+
+.planet-info-page {
+    min-height: 100vh;
+    padding-top: calc(var(--nav-height) + 52px);
+    padding-bottom: 48px;
+    background:
+            linear-gradient(rgba(214, 223, 233, 0.18), rgba(191, 208, 228, 0.18)),
+            url('/images/Planet_1.png') center center / cover no-repeat;
+}
+
+.planet-info-shell {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 0 24px;
+}
+
+.planet-info-card {
+    width: min(1120px, 100%);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    background: rgba(223, 232, 242, 0.18);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.14);
+    overflow: hidden;
+}
+
+.planet-info-top {
+    min-height: 260px;
+    display: flex;
+    align-items: center;
+    padding: 48px 56px;
+    background: rgba(223, 229, 237, 0.35);
+}
+
+.planet-info-bottom {
+    min-height: 260px;
+    padding: 46px 56px 56px;
+    background: rgba(191, 208, 228, 0.28);
+    color: #1f2937;
+    font-size: 1.18rem;
+    line-height: 1.7;
+}
+
+.planet-info-heading {
+    max-width: 700px;
+}
+
+.planet-info-label {
+    margin: 0 0 20px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: rgba(17, 24, 39, 0.75);
+}
+
+.planet-info-name {
+    margin: 0;
+    font-family: 'Exo 2', sans-serif;
+    font-size: clamp(2.2rem, 4vw, 3.3rem);
+    font-weight: 400;
+    line-height: 1.15;
+    color: #313843;
+}
+
+.planet-info-bottom {
+    min-height: 260px;
+    padding: 46px 56px 56px;
+    background: rgba(191, 208, 228, 0.5);
+    color: #1f2937;
+    font-size: 1.18rem;
+    line-height: 1.7;
+}
+
+.planet-info-bottom p {
+    margin: 0 0 10px;
+}
+
+.planet-info-bottom strong {
+    font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    .planet-info-page {
+        padding-top: calc(var(--nav-height) + 32px);
+    }
+
+    .planet-info-shell {
+        padding: 0 16px;
+    }
+
+    .planet-info-top {
+        padding: 32px 24px;
+        min-height: 220px;
+    }
+
+    .planet-info-bottom {
+        padding: 32px 24px 40px;
+        font-size: 1.05rem;
+    }
+
+    .planet-info-name {
+        font-size: 2rem;
+    }
 }
