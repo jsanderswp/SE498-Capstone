@@ -16,7 +16,6 @@
     --nav-text: #111827;
     --nav-border: rgba(0, 0, 0, 0.08);
     --glass-border: rgba(79, 195, 247, 0.18);
-    /* Figma lighter steel-blue hero tones */
     --hero-top: #4a7fa5;
     --hero-mid: #2a5f8a;
     --hero-deep: #0d3156;
@@ -74,7 +73,6 @@ body {
     color: var(--lcars-gold);
 }
 
-/* LCARS accent line under brand */
 .app-title::after {
     content: '';
     display: block;
@@ -138,15 +136,12 @@ body {
     justify-content: center;
     text-align: center;
     overflow: hidden;
-
-    /* Lighter steel-blue matching Figma */
     background:
             radial-gradient(ellipse at 65% 45%, rgba(100, 160, 210, 0.55) 0%, transparent 55%),
             radial-gradient(ellipse at 20% 75%, rgba(30, 80, 130, 0.4) 0%, transparent 50%),
             linear-gradient(170deg, var(--hero-top) 0%, var(--hero-mid) 40%, var(--hero-deep) 100%);
 }
 
-/* Starfield overlay — pure CSS dots */
 .hero-section::before {
     content: '';
     position: absolute;
@@ -170,7 +165,6 @@ body {
     pointer-events: none;
 }
 
-/* Nebula glow */
 .hero-section::after {
     content: '';
     position: absolute;
@@ -324,3 +318,204 @@ body {
     border-color: rgba(79, 195, 247, 0.6);
     color: var(--text-primary);
 }
+
+/* =============================================
+   USER PROFILE PAGE
+   ============================================= */
+
+.user-hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: flex-start;
+    overflow: hidden;
+    padding-top: var(--nav-height);
+    background:
+            radial-gradient(ellipse at 65% 45%, rgba(100, 160, 210, 0.55) 0%, transparent 55%),
+            radial-gradient(ellipse at 20% 75%, rgba(30, 80, 130, 0.4) 0%, transparent 50%),
+            linear-gradient(170deg, var(--hero-top) 0%, var(--hero-mid) 40%, var(--hero-deep) 100%);
+}
+
+.user-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+            radial-gradient(1px 1px at 10% 15%, rgba(255,255,255,0.7) 0%, transparent 100%),
+            radial-gradient(1px 1px at 25% 40%, rgba(255,255,255,0.5) 0%, transparent 100%),
+            radial-gradient(1px 1px at 40% 10%, rgba(255,255,255,0.6) 0%, transparent 100%),
+            radial-gradient(1.5px 1.5px at 55% 60%, rgba(255,255,255,0.4) 0%, transparent 100%),
+            radial-gradient(1px 1px at 70% 25%, rgba(255,255,255,0.7) 0%, transparent 100%),
+            radial-gradient(1px 1px at 80% 75%, rgba(255,255,255,0.5) 0%, transparent 100%),
+            radial-gradient(1px 1px at 90% 45%, rgba(255,255,255,0.6) 0%, transparent 100%),
+            radial-gradient(1px 1px at 15% 70%, rgba(255,255,255,0.5) 0%, transparent 100%),
+            radial-gradient(1px 1px at 60% 85%, rgba(255,255,255,0.4) 0%, transparent 100%),
+            radial-gradient(1px 1px at 35% 55%, rgba(255,255,255,0.6) 0%, transparent 100%),
+            radial-gradient(1px 1px at 85% 20%, rgba(255,255,255,0.5) 0%, transparent 100%),
+            radial-gradient(1px 1px at 5% 90%, rgba(255,255,255,0.6) 0%, transparent 100%),
+            radial-gradient(1.5px 1.5px at 48% 35%, rgba(200,230,255,0.8) 0%, transparent 100%),
+            radial-gradient(1px 1px at 72% 62%, rgba(255,255,255,0.5) 0%, transparent 100%),
+            radial-gradient(1px 1px at 92% 88%, rgba(255,255,255,0.4) 0%, transparent 100%);
+    pointer-events: none;
+}
+
+.user-hero-content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 56px 32px 64px;
+    animation: fadeUp 0.9s ease both;
+}
+
+.user-greeting {
+    margin-bottom: 40px;
+}
+
+.user-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 900;
+    color: var(--text-primary);
+    margin: 8px 0 0;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.25);
+}
+
+.username-highlight {
+    color: var(--lcars-gold);
+}
+
+/* ---- Tabs ---- */
+.profile-tabs {
+    display: flex;
+    gap: 0;
+    margin-bottom: 32px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.tab-btn {
+    font-family: 'Exo 2', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: rgba(255, 255, 255, 0.6);
+    background: none;
+    border: none;
+    padding: 10px 24px 12px;
+    cursor: pointer;
+    position: relative;
+    transition: color 0.2s ease;
+}
+
+.tab-btn::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: white;
+    transform: scaleX(0);
+    transition: transform 0.2s ease;
+    border-radius: 2px 2px 0 0;
+}
+
+.tab-btn.active {
+    color: white;
+}
+
+.tab-btn.active::after {
+    transform: scaleX(1);
+}
+
+.tab-btn:hover {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* ---- Tab Panels ---- */
+.tab-panel {
+    display: none;
+}
+
+.tab-panel.active {
+    display: block;
+    animation: fadeUp 0.4s ease both;
+}
+
+/* ---- Planet Grid ---- */
+.planet-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 20px;
+}
+
+/* ---- Planet Card ---- */
+.planet-card {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    padding: 20px 22px;
+    backdrop-filter: blur(10px);
+    transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+}
+
+.planet-card:hover {
+    transform: translateY(-4px);
+    background: rgba(255, 255, 255, 0.16);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.planet-card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.planet-icon {
+    font-size: 1.4rem;
+    line-height: 1;
+}
+
+.planet-name {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+    letter-spacing: 0.03em;
+}
+
+.planet-card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.planet-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.stat-label {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.18em;
+    color: rgba(255, 255, 255, 0.45);
+}
+
+.stat-value {
+    font-family: 'Exo 2', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+/* Weather condition tints */
+.condition-hot    { color: #ffb347; }
+.condition-mild   { color: #a8e6a3; }
+.condition-cold   { color: #a8d8f0; }
+.condition-storm  { color: #cf9fff; }
