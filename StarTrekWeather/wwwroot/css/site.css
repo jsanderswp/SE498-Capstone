@@ -320,108 +320,128 @@ body {
     color: var(--text-primary);
 }
 
-/* =============================================
-   PLANET INFO PAGE
-   ============================================= */
-
 .planet-info-page {
+    position: relative;
     min-height: 100vh;
-    padding-top: calc(var(--nav-height) + 52px);
-    padding-bottom: 48px;
-    background:
-            linear-gradient(rgba(214, 223, 233, 0.18), rgba(191, 208, 228, 0.18)),
-            url('/images/Planet_1.png') center center / cover no-repeat;
-}
-
-.planet-info-shell {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    padding: 0 24px;
-}
-
-.planet-info-card {
-    width: min(1120px, 100%);
-    border: 1px solid rgba(255, 255, 255, 0.35);
-    background: rgba(223, 232, 242, 0.18);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.14);
+    padding-top: var(--nav-height);
+    background: url('/images/Planet_1.png') center center / cover no-repeat;
     overflow: hidden;
 }
 
-.planet-info-top {
-    min-height: 260px;
+.planet-info-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+            linear-gradient(
+                    90deg,
+                    rgba(2, 8, 23, 0.88) 0%,
+                    rgba(2, 8, 23, 0.76) 35%,
+                    rgba(2, 8, 23, 0.45) 60%,
+                    rgba(2, 8, 23, 0.30) 100%
+            );
+}
+
+.planet-info-content {
+    position: relative;
+    z-index: 2;
+    min-height: calc(100vh - var(--nav-height));
     display: flex;
     align-items: center;
-    padding: 48px 56px;
-    background: rgba(223, 229, 237, 0.35);
+    padding: 0 56px;
 }
 
-.planet-info-bottom {
-    min-height: 260px;
-    padding: 46px 56px 56px;
-    background: rgba(191, 208, 228, 0.28);
-    color: #1f2937;
-    font-size: 1.18rem;
-    line-height: 1.7;
+.planet-copy {
+    max-width: 760px;
+    margin-top: 40px;
 }
 
-.planet-info-heading {
-    max-width: 700px;
+.planet-hero-label {
+    margin: 0 0 18px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.82rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--lcars-gold);
 }
 
-.planet-info-label {
-    margin: 0 0 20px;
-    font-size: 0.95rem;
-    font-weight: 500;
-    color: rgba(17, 24, 39, 0.75);
-}
-
-.planet-info-name {
+.planet-hero-title {
     margin: 0;
-    font-family: 'Exo 2', sans-serif;
-    font-size: clamp(2.2rem, 4vw, 3.3rem);
-    font-weight: 400;
-    line-height: 1.15;
-    color: #313843;
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(4.5rem, 9vw, 7.5rem);
+    line-height: 0.95;
+    font-weight: 900;
+    color: #f8fbff;
+    text-shadow: 0 10px 30px rgba(0, 0, 0, 0.55);
+    max-width: 8ch;
 }
 
-.planet-info-bottom {
-    min-height: 260px;
-    padding: 46px 56px 56px;
-    background: rgba(191, 208, 228, 0.5);
-    color: #1f2937;
-    font-size: 1.18rem;
-    line-height: 1.7;
+.planet-hero-subtitle {
+    margin: 22px 0 30px;
+    font-size: 1.15rem;
+    line-height: 1.5;
+    color: rgba(232, 244, 253, 0.9);
+    max-width: 540px;
 }
 
-.planet-info-bottom p {
-    margin: 0 0 10px;
+.planet-stats-card {
+    width: min(760px, 100%);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    padding: 20px;
+    border-radius: 22px;
+    background: rgba(8, 17, 32, 0.60);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.28);
 }
 
-.planet-info-bottom strong {
-    font-weight: 500;
+.planet-stat {
+    padding: 18px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.planet-stat-label {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: rgba(79, 195, 247, 0.95);
+}
+
+.planet-stat-value {
+    font-size: 1.05rem;
+    font-weight: 600;
+    line-height: 1.4;
+    color: #f4f8fc;
+}
+
+@media (max-width: 900px) {
+    .planet-stats-card {
+        grid-template-columns: 1fr;
+    }
 }
 
 @media (max-width: 768px) {
-    .planet-info-page {
-        padding-top: calc(var(--nav-height) + 32px);
+    .planet-info-content {
+        padding: 0 20px;
     }
 
-    .planet-info-shell {
-        padding: 0 16px;
+    .planet-copy {
+        max-width: 100%;
+        margin-top: 0;
     }
 
-    .planet-info-top {
-        padding: 32px 24px;
-        min-height: 220px;
+    .planet-hero-title {
+        max-width: none;
+        font-size: clamp(3rem, 13vw, 4.8rem);
     }
 
-    .planet-info-bottom {
-        padding: 32px 24px 40px;
-        font-size: 1.05rem;
-    }
-
-    .planet-info-name {
-        font-size: 2rem;
+    .planet-stats-card {
+        padding: 16px;
     }
 }

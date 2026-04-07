@@ -1,23 +1,35 @@
 @page
 @model PlanetInfoModel
 @{
-    ViewData["Title"] = "Planet Info";
+ViewData["Title"] = "Planet Info";
 }
 
 <section class="planet-info-page">
-    <div class="planet-info-shell">
-        <div class="planet-info-card">
-            <div class="planet-info-top">
-                <div class="planet-info-heading">
-                    <p class="planet-info-label">Planet Info</p>
-                    <h1 class="planet-info-name">@Model.PlanetName</h1>
-                </div>
-            </div>
+    <div class="planet-info-overlay"></div>
 
-            <div class="planet-info-bottom">
-                <p><strong>Mean Temp:</strong> @Model.MeanTemp</p>
-                <p><strong>Atmospheric Pressure:</strong> @Model.AtmosphericPressure</p>
-                <p><strong>Solar System:</strong> @Model.SolarSystem</p>
+    <div class="planet-info-content">
+        <div class="planet-copy">
+            <p class="planet-hero-label">Starfleet Planet Record</p>
+            <h1 class="planet-hero-title">@Model.PlanetName</h1>
+            <p class="planet-hero-subtitle">
+                Atmospheric conditions and planetary registry data
+            </p>
+
+            <div class="planet-stats-card">
+                <div class="planet-stat">
+                    <span class="planet-stat-label">Mean Temperature</span>
+                    <span class="planet-stat-value">@Model.MeanTemp</span>
+                </div>
+
+                <div class="planet-stat">
+                    <span class="planet-stat-label">Atmospheric Pressure</span>
+                    <span class="planet-stat-value">@Model.AtmosphericPressure</span>
+                </div>
+
+                <div class="planet-stat">
+                    <span class="planet-stat-label">Solar System</span>
+                    <span class="planet-stat-value">@Model.SolarSystem</span>
+                </div>
             </div>
         </div>
     </div>
