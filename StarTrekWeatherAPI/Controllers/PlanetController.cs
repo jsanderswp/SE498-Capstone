@@ -13,6 +13,8 @@ public class PlanetController : ControllerBase
             SolarSystem = "Sol",
             MaxTemp = 56.7f,
             MinTemp = -89.2f,
+            MeanTemp = "15 C",
+            AtmosphericPressure = "1.00 atm",
             Description = "A temperate world and home of the United Federation of Planets headquarters."
         },
         new Planet

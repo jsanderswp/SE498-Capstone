@@ -644,3 +644,15 @@ body {
 .condition-mild   { color: #a8e6a3; }
 .condition-cold   { color: #a8d8f0; }
 .condition-storm  { color: #cf9fff; }
+
+.planet-description {
+    width: min(760px, 100%);
+    margin: 18px 0 0;
+    padding: 18px 22px;
+    border-radius: 18px;
+    background: rgba(8, 17, 32, 0.48);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    color: rgba(232, 244, 253, 0.92);
+    line-height: 1.6;
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.22);
+}
