@@ -15,43 +15,70 @@ namespace StarTrekWeather.Controllers
             _db = db;
         }
 
-        // POST api/users/register
-        [HttpPost("add userplanet")]
-        public IActionResult Register([FromBody] User user)
+        // POST api/userplanets
+        [HttpPost]
+        public IActionResult AddUserPlanet([FromBody] UserPlanet userPlanet)
         {
-            if (string.IsNullOrWhiteSpace(user.Password) || user.Password.Length < 6)
-                return BadRequest("Password must be at least 6 characters.");
+            var user = _db.Users.FirstOrDefault(u => u.Username == userPlanet.Username);
+            if (user == null)
+                return NotFound("User not found.");
 
-            // Hash password
-            user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
+            var exists = _db.UserPlanets.Any(up =>
+                up.Username == userPlanet.Username &&
+                up.PlanetName == userPlanet.PlanetName);
 
-            _db.Users.Add(user);
+            if (exists)
+                return Conflict("Planet already saved for this user.");
+
+            _db.UserPlanets.Add(userPlanet);
             _db.SaveChanges();
 
-            return Ok(new { message = "User created successfully" });
+            return Ok(new { message = "Planet added successfully." });
         }
 
-        // POST api/users/login
-        public class LoginRequest
+        // GET api/userplanets/{username}
+        [HttpGet("{username}")]
+        public IActionResult GetUserPlanets(string username)
         {
-            public string Username { get; set; } = "";
-            public string Password { get; set; } = "";
-        }
-
-        [HttpPost("login")]
-        public IActionResult Login([FromBody] LoginRequest loginRequest)
-        {
-            var user = _db.Users.FirstOrDefault(u => u.Username == loginRequest.Username);
-
+            var user = _db.Users.FirstOrDefault(u => u.Username == username);
             if (user == null)
-                return Unauthorized("User not found");
+                return NotFound("User not found.");
 
-            bool isValid = BCrypt.Net.BCrypt.Verify(loginRequest.Password, user.Password);
+            var planets = _db.UserPlanets
+                .Where(up => up.Username == username)
+                .Select(up => up.PlanetName)
+                .ToList();
 
-            if (!isValid)
-                return Unauthorized("Invalid password");
+            return Ok(planets);
+        }
 
-            return Ok(new { message = "Login successful", userID = user.UserID });
+        // DELETE api/userplanets
+        [HttpDelete]
+        public IActionResult RemoveUserPlanet([FromBody] UserPlanet userPlanet)
+        {
+            var entry = _db.UserPlanets.FirstOrDefault(up =>
+                up.Username == userPlanet.Username &&
+                up.PlanetName == userPlanet.PlanetName);
+
+            if (entry == null)
+                return NotFound("User planet not found.");
+
+            _db.UserPlanets.Remove(entry);
+            _db.SaveChanges();
+
+            return Ok(new { message = "Planet removed successfully." });
+        }
+        
+        // GET api/userplanets/planet/{planetName}
+        [HttpGet("planet/{planetName}")]
+        public IActionResult GetPlanetUsers(string planetName)
+        {
+            var users = _db.UserPlanets
+                .Where(up => up.PlanetName == planetName)
+                .Select(up => up.Username)
+                .ToList();
+
+            return Ok(new { planet = planetName, userCount = users.Count, users = users });
         }
     }
 }

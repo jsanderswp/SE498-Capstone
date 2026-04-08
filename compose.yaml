@@ -23,11 +23,11 @@ services:
     environment:
       ConnectionStrings__DefaultConnection: "Host=web-db;Port=5432;Database=StarTrekWeatherDB;Username=postgres;Password=K0rmaVindal00!!"
     ports:
-      - "5001:80"
+      - "5001:8080"
         
   api:
     build:
-      context: ./StarTrekWeather.Api
+      context: ./StarTrekWeatherAPI
       dockerfile: Dockerfile
     ports:
       - "5002:8080"

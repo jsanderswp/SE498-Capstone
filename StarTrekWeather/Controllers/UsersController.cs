@@ -1,6 +1,7 @@
 using StarTrekWeather.Data;
 using StarTrekWeather.Models;
 using Microsoft.AspNetCore.Mvc;
+using BCrypt.Net;
 
 namespace StarTrekWeather.Controllers
 {
@@ -19,18 +20,19 @@ namespace StarTrekWeather.Controllers
         [HttpPost("register")]
         public IActionResult Register([FromBody] User user)
         {
-            if (string.IsNullOrWhiteSpace(user.Password) || user.Password.Length < 6)
+            if (string.IsNullOrWhiteSpace(user.PasswordHash) || user.PasswordHash.Length < 6)
                 return BadRequest("Password must be at least 6 characters.");
-            if (user.Password.length > 20)
+            if (user.PasswordHash.Length > 20)
                 return BadRequest("Password must be no more than 20 characters.");
-            // Hash password
-            user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
+
+            user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(user.PasswordHash);
 
             _db.Users.Add(user);
             _db.SaveChanges();
 
             return Ok(new { message = "User created successfully" });
         }
+
 
         // POST api/users/login
         public class LoginRequest
@@ -47,12 +49,12 @@ namespace StarTrekWeather.Controllers
             if (user == null)
                 return Unauthorized("User not found");
 
-            bool isValid = BCrypt.Net.BCrypt.Verify(loginRequest.Password, user.Password);
+            bool isValid = BCrypt.Net.BCrypt.Verify(loginRequest.Password, user.PasswordHash);
 
             if (!isValid)
                 return Unauthorized("Invalid password");
 
-            return Ok(new { message = "Login successful", userID = user.UserID });
+            return Ok(new { message = "Login successful", username = user.Username });
         }
     }
 }
