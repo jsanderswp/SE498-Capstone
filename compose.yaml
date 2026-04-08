@@ -11,19 +11,26 @@ services:
       - "5432:5432"
     volumes:
       - pg_data:/var/lib/postgresql/data
-      - ./StarTrekWeather_create.sql:/docker-entrypoint-initdb.d/StarTrekWeather_create.sql
+      - ./StarTrekWeather/StarTrekWeather_create.sql:/docker-entrypoint-initdb.d/StarTrekWeather_create.sql
 
 
   web:
     build: 
-      context: .
+      context: ./StarTrekWeather
       dockerfile: Dockerfile
     depends_on:
       - web-db
     environment:
       ConnectionStrings__DefaultConnection: "Host=web-db;Port=5432;Database=StarTrekWeatherDB;Username=postgres;Password=K0rmaVindal00!!"
     ports:
-      - "5001:80"
+      - "5001:8080"
+        
+  api:
+    build:
+      context: ./StarTrekWeatherAPI
+      dockerfile: Dockerfile
+    ports:
+      - "5002:8080"
 
 volumes:
   pg_data:

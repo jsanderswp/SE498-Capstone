@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.OpenApi;
+using StarTrekWeather.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 

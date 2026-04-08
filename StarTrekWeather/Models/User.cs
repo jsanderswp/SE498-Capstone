@@ -1,4 +1,4 @@
-namespace StarTrekWeather.models;
+namespace StarTrekWeather.Models;
 public class User
 { 
     public string Username { get; set; } = null!;
