@@ -7,8 +7,13 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services
 builder.Services.AddRazorPages();
 builder.Services.AddOpenApi();
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+//This was removed so I could run the project, I couldn't run it with these lines
+
+//builder.Services.AddDbContext<AppDbContext>(options =>
+ //   options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+
 
 var app = builder.Build();
 
