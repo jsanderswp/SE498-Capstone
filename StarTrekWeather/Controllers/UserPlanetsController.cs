@@ -6,23 +6,22 @@ namespace StarTrekWeather.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class UsersController : ControllerBase
+    public class UserPlanetsController : ControllerBase
     {
         private readonly AppDbContext _db;
 
-        public UsersController(AppDbContext db)
+        public UserPlanetsController(AppDbContext db)
         {
             _db = db;
         }
 
         // POST api/users/register
-        [HttpPost("register")]
+        [HttpPost("add userplanet")]
         public IActionResult Register([FromBody] User user)
         {
             if (string.IsNullOrWhiteSpace(user.Password) || user.Password.Length < 6)
                 return BadRequest("Password must be at least 6 characters.");
-            if (user.Password.length > 20)
-                return BadRequest("Password must be no more than 20 characters.");
+
             // Hash password
             user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
 
