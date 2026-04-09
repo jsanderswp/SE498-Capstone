@@ -11,26 +11,69 @@
         <p class="hero-subtitle">Explore atmospheric conditions across the galaxy.</p>
 
         <div class="search-wrapper">
-            <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-            </svg>
-            <input type="text" class="planet-search" placeholder="Search a planet..." id="planetSearch" autocomplete="off" />
-            <button class="search-clear" id="clearSearch" aria-label="Clear search">&#x2715;</button>
-        </div>
-    </div>
-</section>
+    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+    </svg>
+    <input type="text" class="planet-search" placeholder="Search a planet..." id="planetSearch" autocomplete="off" />
+    <button class="search-clear" id="clearSearch" aria-label="Clear search">&#x2715;</button>
+    <ul class="search-dropdown" id="searchDropdown"></ul>
+</div>
 
 <script>
     const input = document.getElementById('planetSearch');
     const clearBtn = document.getElementById('clearSearch');
+    const dropdown = document.getElementById('searchDropdown');
+    let debounceTimer;
 
     input.addEventListener('input', () => {
-        clearBtn.style.opacity = input.value.length > 0 ? '1' : '0';
+        const q = input.value.trim();
+        clearBtn.style.opacity = q.length > 0 ? '1' : '0';
+        clearTimeout(debounceTimer);
+        if (q.length < 1) { hideDropdown(); return; }
+        debounceTimer = setTimeout(() => fetchSuggestions(q), 200);
     });
+
+    async function fetchSuggestions(q) {
+        try {
+            const res = await fetch(`/api/planetproxy/search?q=${encodeURIComponent(q)}`);
+            const planets = await res.json();
+            dropdown.innerHTML = '';
+            if (planets.length === 0) { hideDropdown(); return; }
+            planets.forEach(planet => {
+                const li = document.createElement('li');
+                li.className = 'search-dropdown-item';
+                li.textContent = planet.name;
+                li.addEventListener('click', () => {
+                    window.location.href = `/PlanetInfo?planet=${encodeURIComponent(planet.name)}`;
+                });
+                dropdown.appendChild(li);
+            });
+            dropdown.classList.add('active');
+        } catch (err) {
+            console.error('Search error:', err);
+        }
+    }
+
+    function hideDropdown() {
+        dropdown.classList.remove('active');
+        dropdown.innerHTML = '';
+    }
 
     clearBtn.addEventListener('click', () => {
         input.value = '';
         clearBtn.style.opacity = '0';
+        hideDropdown();
         input.focus();
+    });
+
+    input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            const first = dropdown.querySelector('.search-dropdown-item');
+            if (first) first.click();
+        }
+    });
+
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.search-wrapper')) hideDropdown();
     });
 </script>
