@@ -1,11 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "WQelV7OC7BM=",
+  "dgSpecHash": "ttk5ATFQaRo=",
   "success": true,
-  "projectFilePath": "/Users/jsanderswp/RiderProjects/SE498-Capstone/StarTrekWeatherAPI/StarTrekWeatherAPI/StarTrekWeatherAPI.csproj",
+  "projectFilePath": "/Users/rayhettleman/RiderProjects/SE498-Capstone/StarTrekWeatherAPI/StarTrekWeatherAPI.csproj",
   "expectedPackageFiles": [
-    "/Users/jsanderswp/.nuget/packages/microsoft.aspnetcore.openapi/10.0.3/microsoft.aspnetcore.openapi.10.0.3.nupkg.sha512",
-    "/Users/jsanderswp/.nuget/packages/microsoft.openapi/2.0.0/microsoft.openapi.2.0.0.nupkg.sha512"
+    "/Users/rayhettleman/.nuget/packages/microsoft.aspnetcore.openapi/9.0.0/microsoft.aspnetcore.openapi.9.0.0.nupkg.sha512",
+    "/Users/rayhettleman/.nuget/packages/microsoft.openapi/1.6.17/microsoft.openapi.1.6.17.nupkg.sha512",
+    "/Users/rayhettleman/.nuget/packages/microsoft.netcore.app.ref/9.0.13/microsoft.netcore.app.ref.9.0.13.nupkg.sha512",
+    "/Users/rayhettleman/.nuget/packages/microsoft.aspnetcore.app.ref/9.0.13/microsoft.aspnetcore.app.ref.9.0.13.nupkg.sha512",
+    "/Users/rayhettleman/.nuget/packages/microsoft.netcore.app.host.osx-arm64/9.0.13/microsoft.netcore.app.host.osx-arm64.9.0.13.nupkg.sha512"
   ],
   "logs": []
 }
