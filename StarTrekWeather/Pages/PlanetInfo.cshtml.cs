@@ -12,7 +12,7 @@ public class PlanetInfoModel : PageModel
     public async Task OnGetAsync()
     {
         using var client = new HttpClient();
-        var planet = await client.GetFromJsonAsync<PlanetDto>("http://localhost:5166/api/planet/Earth");
+        var planet = await client.GetFromJsonAsync<PlanetDto>("http://api:8080/api/planet/Earth");
 
         if (planet is null)
         {
