@@ -1,25 +1,26 @@
 {
   "format": 1,
   "restore": {
-    "/Users/rayhettleman/RiderProjects/SE498-Capstone/StarTrekWeatherAPI/StarTrekWeatherAPI.csproj": {}
+    "/Users/jsanderswp/RiderProjects/SE498-Capstone/StarTrekWeatherAPI/StarTrekWeatherAPI.csproj": {}
   },
   "projects": {
-    "/Users/rayhettleman/RiderProjects/SE498-Capstone/StarTrekWeatherAPI/StarTrekWeatherAPI.csproj": {
+    "/Users/jsanderswp/RiderProjects/SE498-Capstone/StarTrekWeatherAPI/StarTrekWeatherAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/rayhettleman/RiderProjects/SE498-Capstone/StarTrekWeatherAPI/StarTrekWeatherAPI.csproj",
+        "projectUniqueName": "/Users/jsanderswp/RiderProjects/SE498-Capstone/StarTrekWeatherAPI/StarTrekWeatherAPI.csproj",
         "projectName": "StarTrekWeatherAPI",
-        "projectPath": "/Users/rayhettleman/RiderProjects/SE498-Capstone/StarTrekWeatherAPI/StarTrekWeatherAPI.csproj",
-        "packagesPath": "/Users/rayhettleman/.nuget/packages/",
-        "outputPath": "/Users/rayhettleman/RiderProjects/SE498-Capstone/StarTrekWeatherAPI/obj/",
+        "projectPath": "/Users/jsanderswp/RiderProjects/SE498-Capstone/StarTrekWeatherAPI/StarTrekWeatherAPI.csproj",
+        "packagesPath": "/Users/jsanderswp/.nuget/packages/",
+        "outputPath": "/Users/jsanderswp/RiderProjects/SE498-Capstone/StarTrekWeatherAPI/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/rayhettleman/.nuget/NuGet/NuGet.Config"
+          "/Users/jsanderswp/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
         ],
         "sources": {
+          "/opt/homebrew/Cellar/dotnet/10.0.106/libexec/library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -47,6 +48,14 @@
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[9.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[9.0.1, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[9.0.4, )"
             }
           },
           "imports": [
@@ -63,15 +72,15 @@
           "downloadDependencies": [
             {
               "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[9.0.13, 9.0.13]"
+              "version": "[9.0.15, 9.0.15]"
             },
             {
               "name": "Microsoft.NETCore.App.Host.osx-arm64",
-              "version": "[9.0.13, 9.0.13]"
+              "version": "[9.0.15, 9.0.15]"
             },
             {
               "name": "Microsoft.NETCore.App.Ref",
-              "version": "[9.0.13, 9.0.13]"
+              "version": "[9.0.15, 9.0.15]"
             }
           ],
           "frameworkReferences": {
@@ -82,7 +91,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/Users/rayhettleman/.dotnet/sdk/10.0.103/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/opt/homebrew/Cellar/dotnet/10.0.106/libexec/sdk/10.0.106/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

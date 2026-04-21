@@ -1,8 +1,14 @@
 version: "3.9"
 
+networks:
+  app-network:
+    driver: bridge
+
 services:
   web-db:
     image: postgres:16
+    networks:
+      - app-network
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: K0rmaVindal00!!
@@ -13,24 +19,52 @@ services:
       - pg_data:/var/lib/postgresql/data
       - ./StarTrekWeather/StarTrekWeather_create.sql:/docker-entrypoint-initdb.d/StarTrekWeather_create.sql
 
-
   web:
-    build: 
+    build:
       context: ./StarTrekWeather
       dockerfile: Dockerfile
+    networks:
+      - app-network
     depends_on:
       - web-db
     environment:
       ConnectionStrings__DefaultConnection: "Host=web-db;Port=5432;Database=StarTrekWeatherDB;Username=postgres;Password=K0rmaVindal00!!"
+      PlanetApi__BaseUrl: "http://api:8080"
     ports:
       - "5001:8080"
-        
+
+  api-db:
+    image: postgres:16
+    networks:
+      - app-network
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: K0rmaVindal00!!
+      POSTGRES_DB: StarTrekAPIDB
+    ports:
+      - "5433:5432"
+    volumes:
+      - api_pg_data:/var/lib/postgresql/data
+      - ./StarTrekWeatherAPI/StarTrekWeatherAPI_create.sql:/docker-entrypoint-initdb.d/StarTrekWeatherAPI_create.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      retries: 5
+
   api:
     build:
       context: ./StarTrekWeatherAPI
       dockerfile: Dockerfile
+    networks:
+      - app-network
+    depends_on:
+      api-db:
+        condition: service_healthy
+    environment:
+      ConnectionStrings__DefaultConnection: "Host=api-db;Port=5432;Database=StarTrekAPIDB;Username=postgres;Password=K0rmaVindal00!!"
     ports:
       - "5002:8080"
 
 volumes:
   pg_data:
+  api_pg_data:
