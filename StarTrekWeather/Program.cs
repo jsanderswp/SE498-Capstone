@@ -7,7 +7,11 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services
 builder.Services.AddRazorPages();
 builder.Services.AddOpenApi();
-
+builder.Services.AddControllers();
+builder.Services.AddHttpClient("StarTrekWeatherAPI", client =>
+{
+    client.BaseAddress = new Uri("http://api:8080/");
+});
 //This was removed so I could run the project, I couldn't run it with these lines
 
 //builder.Services.AddDbContext<AppDbContext>(options =>
@@ -26,6 +30,7 @@ if (app.Environment.IsDevelopment())
 //app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
+app.MapControllers();
 
 app.MapRazorPages();
 
