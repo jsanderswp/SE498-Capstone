@@ -1,6 +1,9 @@
 // Controllers/PlanetsController.cs
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Http.Json;
+using StarTrekWeather.Data;
+using StarTrekWeather.Models;
+using StarTrekWeather.Services;
 
 namespace StarTrekWeather.Controllers
 {
@@ -9,11 +12,12 @@ namespace StarTrekWeather.Controllers
     public class PlanetsController : ControllerBase
     {
         private readonly HttpClient _httpClient;
-        private readonly Random _random = new();
+		private readonly TempService _tempService;
 
-        public PlanetsController(IHttpClientFactory httpClientFactory)
+        public PlanetsController(IHttpClientFactory httpClientFactory, TempService tempService)
         {
             _httpClient = httpClientFactory.CreateClient("StarTrekWeatherAPI");
+			_tempService = tempService;
         }
 
         // GET api/planets
@@ -39,9 +43,7 @@ namespace StarTrekWeather.Controllers
 
             var planet = await response.Content.ReadFromJsonAsync<PlanetDto>();
             if (planet is null) return StatusCode(500, new { error = "Failed to parse planet data." });
-
-            var currentTemp = _random.NextDouble() * (planet.MaxTemp - planet.MinTemp) + planet.MinTemp;
-
+			var CurrentTemp = _tempService.GetCurrentTemp(planet.MaxTemp, planet.MinTemp);
             return Ok(new
             {
                 planet.Name,
@@ -50,7 +52,7 @@ namespace StarTrekWeather.Controllers
                 planet.AtmosphericPressure,
                 planet.MinTemp,
                 planet.MaxTemp,
-                CurrentTemp = Math.Round(currentTemp, 1)
+                CurrentTemp
             });
         }
 
