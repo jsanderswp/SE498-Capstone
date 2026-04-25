@@ -9,6 +9,12 @@ builder.Services.AddRazorPages();
 builder.Services.AddControllers();
 builder.Services.AddHttpClient();
 builder.Services.AddOpenApi();
+builder.Services.AddControllers();
+builder.Services.AddHttpClient("StarTrekWeatherAPI", client =>
+{
+    client.BaseAddress = new Uri("http://api:8080/");
+});
+//This was removed so I could run the project, I couldn't run it with these lines
 
 //builder.Services.AddDbContext<AppDbContext>(options =>
 //    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -23,6 +29,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseStaticFiles();
 app.UseRouting();
+app.MapControllers();
 
 app.MapRazorPages();
 app.MapControllers();
