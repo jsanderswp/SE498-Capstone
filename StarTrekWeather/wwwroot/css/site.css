@@ -697,3 +697,213 @@ body {
     line-height: 1.6;
     box-shadow: 0 16px 32px rgba(0, 0, 0, 0.22);
 }
+
+/* =============================================
+   AUTH PAGES (Create Account / Login)
+   ============================================= */
+
+.auth-hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: calc(var(--nav-height) + 40px) 24px 64px;
+    background:
+            radial-gradient(ellipse at 65% 45%, rgba(100, 160, 210, 0.55) 0%, transparent 55%),
+            radial-gradient(ellipse at 20% 75%, rgba(30, 80, 130, 0.4) 0%, transparent 50%),
+            linear-gradient(170deg, var(--hero-top) 0%, var(--hero-mid) 40%, var(--hero-deep) 100%);
+}
+
+.auth-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+            radial-gradient(1px 1px at 10% 15%, rgba(255,255,255,0.7) 0%, transparent 100%),
+            radial-gradient(1px 1px at 25% 40%, rgba(255,255,255,0.5) 0%, transparent 100%),
+            radial-gradient(1px 1px at 40% 10%, rgba(255,255,255,0.6) 0%, transparent 100%),
+            radial-gradient(1.5px 1.5px at 55% 60%, rgba(255,255,255,0.4) 0%, transparent 100%),
+            radial-gradient(1px 1px at 70% 25%, rgba(255,255,255,0.7) 0%, transparent 100%),
+            radial-gradient(1px 1px at 80% 75%, rgba(255,255,255,0.5) 0%, transparent 100%),
+            radial-gradient(1px 1px at 90% 45%, rgba(255,255,255,0.6) 0%, transparent 100%),
+            radial-gradient(1px 1px at 15% 70%, rgba(255,255,255,0.5) 0%, transparent 100%),
+            radial-gradient(1px 1px at 60% 85%, rgba(255,255,255,0.4) 0%, transparent 100%),
+            radial-gradient(1px 1px at 35% 55%, rgba(255,255,255,0.6) 0%, transparent 100%),
+            radial-gradient(1px 1px at 85% 20%, rgba(255,255,255,0.5) 0%, transparent 100%),
+            radial-gradient(1px 1px at 5% 90%, rgba(255,255,255,0.6) 0%, transparent 100%),
+            radial-gradient(1.5px 1.5px at 48% 35%, rgba(200,230,255,0.8) 0%, transparent 100%),
+            radial-gradient(1px 1px at 72% 62%, rgba(255,255,255,0.5) 0%, transparent 100%),
+            radial-gradient(1px 1px at 92% 88%, rgba(255,255,255,0.4) 0%, transparent 100%);
+    pointer-events: none;
+}
+
+.auth-hero-content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 460px;
+    animation: fadeUp 0.9s ease both;
+}
+
+.auth-card {
+    background: rgba(8, 17, 32, 0.62);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 40px 36px;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45),
+                0 0 0 1px rgba(245, 166, 35, 0.05) inset;
+    position: relative;
+    overflow: hidden;
+}
+
+.auth-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg,
+                transparent,
+                var(--lcars-gold) 30%,
+                var(--lcars-blue) 70%,
+                transparent);
+    opacity: 0.7;
+}
+
+.auth-card-header {
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+.auth-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(2rem, 4vw, 2.6rem);
+    font-weight: 900;
+    line-height: 1.05;
+    margin: 4px 0 14px;
+    letter-spacing: -0.01em;
+    color: var(--text-primary);
+    text-shadow: 0 0 40px rgba(255, 255, 255, 0.18);
+}
+
+.auth-subtitle {
+    font-family: 'Exo 2', sans-serif;
+    font-size: 0.92rem;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.78);
+    margin: 0;
+    letter-spacing: 0.02em;
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.auth-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.auth-label {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--lcars-blue);
+    opacity: 0.95;
+}
+
+.auth-input {
+    width: 100%;
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 8px;
+    color: var(--text-primary);
+    font-family: 'Exo 2', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.auth-input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+    font-weight: 300;
+}
+
+.auth-input:focus {
+    border-color: var(--lcars-gold);
+    background: rgba(255, 255, 255, 0.12);
+    box-shadow: 0 0 0 3px rgba(245, 166, 35, 0.15);
+}
+
+.auth-hint {
+    font-family: 'Exo 2', sans-serif;
+    font-size: 0.72rem;
+    color: rgba(200, 225, 245, 0.5);
+    margin-top: 2px;
+    letter-spacing: 0.02em;
+}
+
+.auth-submit {
+    margin-top: 8px;
+    padding: 13px 20px;
+    background: var(--lcars-gold);
+    color: var(--navy-deep);
+    border: 1px solid var(--lcars-gold);
+    border-radius: 6px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.auth-submit:hover {
+    background: #ffc04d;
+    border-color: #ffc04d;
+    box-shadow: 0 0 25px rgba(245, 166, 35, 0.45);
+    transform: translateY(-1px);
+}
+
+.auth-submit:active {
+    transform: translateY(0);
+}
+
+.auth-alt {
+    text-align: center;
+    font-family: 'Exo 2', sans-serif;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.65);
+    margin: 6px 0 0;
+}
+
+.auth-link {
+    color: var(--lcars-blue);
+    text-decoration: none;
+    font-weight: 500;
+    margin-left: 4px;
+    transition: color 0.2s ease;
+}
+
+.auth-link:hover {
+    color: var(--lcars-gold);
+}
+
+@media (max-width: 480px) {
+    .auth-card {
+        padding: 32px 22px;
+    }
+}
