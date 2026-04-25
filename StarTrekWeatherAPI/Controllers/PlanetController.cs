@@ -14,9 +14,20 @@ public class PlanetController : ControllerBase
     }
 
     [HttpGet]
+
     public async Task<IEnumerable<Planet>> GetAll()
     {
         return await _context.Planets.ToListAsync();
+
+    
+    [HttpGet("search")]
+    public IEnumerable<Planet> Search([FromQuery] string q)
+    {
+        if (string.IsNullOrWhiteSpace(q)) return Enumerable.Empty<Planet>();
+
+        return Planets
+            .Where(p => p.Name.Contains(q, StringComparison.OrdinalIgnoreCase))
+            .Take(5);
     }
 
     [HttpGet("{name}")]
