@@ -25,8 +25,10 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
+
 app.UseCors();
 app.UseAuthorization();
+app.UseMiddleware<BasicAuthMiddleware>();
 app.MapControllers();
 
 app.Run();
