@@ -25,4 +25,5 @@ jobs:
       - name: Build
         run: dotnet build --no-restore --configuration Release
 
-      - name: Rut --no-build --verbosity normal
+      - name: Run tests
+        run: dotnet test --no-build --configuration Release
