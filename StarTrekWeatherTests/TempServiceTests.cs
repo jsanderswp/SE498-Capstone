@@ -17,7 +17,7 @@ namespace StarTrekWeatherTests
 
             Assert.InRange(result, min, max);
         }
-
+//This comment is to test GitHub Actions
         [Fact]
         public void GetCurrentTemp_WhenMinEqualsMax_ReturnsExactValue()
         {
