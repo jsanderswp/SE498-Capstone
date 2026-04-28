@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.OpenApi;
 using StarTrekWeather.Data;
+using StarTrekWeather.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,7 @@ builder.Services.AddControllers();
 builder.Services.AddHttpClient();
 builder.Services.AddOpenApi();
 builder.Services.AddControllers();
+builder.Services.AddScoped<TempService>();
 builder.Services.AddHttpClient("StarTrekWeatherAPI", client =>
 {
     client.BaseAddress = new Uri("http://api:8080/");
