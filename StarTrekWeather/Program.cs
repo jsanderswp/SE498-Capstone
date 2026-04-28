@@ -15,6 +15,10 @@ builder.Services.AddScoped<TempService>();
 builder.Services.AddHttpClient("StarTrekWeatherAPI", client =>
 {
     client.BaseAddress = new Uri("http://api:8080/");
+    
+    var credentials = Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes("admin:password123"));
+    client.DefaultRequestHeaders.Authorization = 
+        new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", credentials);
 });
 //This was removed so I could run the project, I couldn't run it with these lines
 
