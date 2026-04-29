@@ -364,7 +364,10 @@ body {
     position: relative;
     min-height: 100vh;
     padding-top: var(--nav-height);
-    background: url('/images/Planet_1.png') center center / cover no-repeat;
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: var(--navy-deep);
     overflow: hidden;
 }
 
