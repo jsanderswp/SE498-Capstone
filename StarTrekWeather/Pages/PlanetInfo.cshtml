@@ -32,6 +32,24 @@ ViewData["Title"] = "Planet Info";
                 </div>
             </div>
             <p class="planet-description">@Model.Description</p>
+
+		@if (!string.IsNullOrEmpty(Model.SaveMessage))
+		{
+    		<div class="alert alert-success">@Model.SaveMessage</div>
+		}
+
+		@if (Model.IsLoggedIn)
+		{
+    		<form method="post" asp-page-handler="Save">
+        		<input type="hidden" name="planet" value="@Model.PlanetName" />
+        		<button type="submit" class="auth-submit">Save Planet</button>
+    		</form>
+		}
+		else
+		{
+    		<p class="auth-hint">Log in to save this planet.</p>
+		}
+
         </div>
     </div>
 </section>

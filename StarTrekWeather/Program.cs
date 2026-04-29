@@ -10,20 +10,26 @@ builder.Services.AddRazorPages();
 builder.Services.AddControllers();
 builder.Services.AddHttpClient();
 builder.Services.AddOpenApi();
-builder.Services.AddControllers();
 builder.Services.AddScoped<TempService>();
+
 builder.Services.AddHttpClient("StarTrekWeatherAPI", client =>
 {
     client.BaseAddress = new Uri("http://api:8080/");
-    
+
     var credentials = Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes("admin:password123"));
-    client.DefaultRequestHeaders.Authorization = 
+    client.DefaultRequestHeaders.Authorization =
         new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", credentials);
 });
-//This was removed so I could run the project, I couldn't run it with these lines
 
-//builder.Services.AddDbContext<AppDbContext>(options =>
-//    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
 
 var app = builder.Build();
 
@@ -35,14 +41,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseStaticFiles();
 app.UseRouting();
-app.MapControllers();
+app.UseSession();
 
-app.MapRazorPages();
 app.MapControllers();
+app.MapRazorPages();
 
 app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
