@@ -3,16 +3,19 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using StarTrekWeather.Data;
 using StarTrekWeather.Models;
+using StarTrekWeather.Services;
 
 public class PlanetInfoModel : PageModel
 {
     private readonly IHttpClientFactory _httpClientFactory;
     private readonly AppDbContext _db;
+    private readonly TempService _tempService;
 
-    public PlanetInfoModel(IHttpClientFactory httpClientFactory, AppDbContext db)
+    public PlanetInfoModel(IHttpClientFactory httpClientFactory, AppDbContext db, TempService tempService)
     {
         _httpClientFactory = httpClientFactory;
         _db = db;
+        _tempService = tempService;
     }
 
     public string PlanetName { get; set; } = "";
@@ -74,7 +77,7 @@ public class PlanetInfoModel : PageModel
             if (result is null)
                 return RedirectToPage("/Index");
 
-            var currentTemp = (result.MaxTemp + result.MinTemp) / 2f;
+            var currentTemp = _tempService.GetCurrentTemp(result.MaxTemp, result.MinTemp);
 
             PlanetName = result.Name;
             MeanTemp = $"{currentTemp:0.#}°C";
