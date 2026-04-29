@@ -1,3 +1,8 @@
+@using Microsoft.AspNetCore.Http
+@{
+    var currentUsername = Context.Session.GetString("Username");
+}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,9 +24,18 @@
             </a>
 
             <div class="nav-links">
-                <a class="nav-btn nav-btn-ghost" href="/Login">Login</a>
-                <a class="nav-btn nav-btn-primary" href="/CreateAccount">Create Account</a>
-            </div>
+    		@if (string.IsNullOrWhiteSpace(currentUsername))
+    		{
+        		<a class="nav-btn nav-btn-ghost" href="/Login">Login</a>
+        		<a class="nav-btn nav-btn-primary" href="/CreateAccount">Create Account</a>
+    		}
+    	else
+    		{
+    		<a class="nav-btn nav-btn-primary" href="/UserPage">@currentUsername</a>
+    		<a class="nav-btn nav-btn-ghost" href="/Logout">Logout</a>
+    		}
+		</div>
+
         </div>
     </nav>
 </header>

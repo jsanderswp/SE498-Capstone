@@ -13,19 +13,26 @@
                 <p class="auth-subtitle">Authenticate with the Starfleet Meteorological Division.</p>
             </div>
 
+            @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+            {
+                <div class="alert alert-danger">@Model.ErrorMessage</div>
+            }
+
             <form class="auth-form" method="post" autocomplete="off">
                 <div class="auth-field">
-                    <label class="auth-label" for="username">Username</label>
-                    <input class="auth-input" type="text" id="username" name="Username" placeholder="Cadet handle" required />
+                    <label class="auth-label" asp-for="Username">Username</label>
+                    <input class="auth-input" asp-for="Username" placeholder="Cadet handle" required />
                 </div>
 
                 <div class="auth-field">
-                    <label class="auth-label" for="password">Password</label>
-                    <input class="auth-input" type="password" id="password" name="Password" placeholder="••••••••" required />
+                    <label class="auth-label" asp-for="Password">Password</label>
+                    <input class="auth-input" asp-for="Password" type="password" placeholder="••••••••" required />
                 </div>
 
                 <button type="submit" class="auth-submit">Login</button>
             </form>
+
+
         </div>
     </div>
 </section>

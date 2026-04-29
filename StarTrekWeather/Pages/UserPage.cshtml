@@ -2,127 +2,42 @@
 @model UserPageModel
 @{
     ViewData["Title"] = "My Profile";
-    var username = "TestUser";
 }
 
 <section class="user-hero">
     <div class="user-hero-content">
-
-        <!-- Greeting -->
         <div class="user-greeting">
             <p class="hero-eyebrow">STARFLEET PERSONNEL FILE</p>
-            <h1 class="user-title">Hello, <span class="username-highlight">@username</span>!</h1>
+            <h1 class="user-title">Hello, <span class="username-highlight">@Model.Username</span>!</h1>
         </div>
 
-        <!-- Tabs -->
-        <div class="profile-tabs">
-            <button class="tab-btn active" onclick="switchTab('recently-viewed', this)">Recently Viewed</button>
-            <button class="tab-btn" onclick="switchTab('saved-planets', this)">Saved Planets</button>
+        <div class="tab-panel active">
+            <h2 class="auth-title">Saved Planets</h2>
+
+            @if (Model.SavedPlanets.Count == 0)
+            {
+                <p class="auth-subtitle">You have not saved any planets yet.</p>
+            }
+            else
+            {
+                <div class="planet-grid">
+                    @foreach (var planet in Model.SavedPlanets)
+                    {
+                        <a class="planet-card" href="/PlanetInfo?planet=@Uri.EscapeDataString(planet)">
+                            <div class="planet-card-header">
+                                <span class="planet-icon">🪐</span>
+                                <h3 class="planet-name">@planet</h3>
+                            </div>
+                            <div class="planet-card-body">
+                                <div class="planet-stat">
+                                    <span class="stat-label">STATUS</span>
+                                    <span class="stat-value condition-mild">Saved</span>
+                                </div>
+                            </div>
+                        </a>
+                    }
+                </div>
+            }
         </div>
-
-        <!-- Recently Viewed Tab -->
-        <div class="tab-panel active" id="recently-viewed">
-            <div class="planet-grid">
-                <div class="planet-card">
-                    <div class="planet-card-header">
-                        <span class="planet-icon">🪐</span>
-                        <h3 class="planet-name">Vulcan</h3>
-                    </div>
-                    <div class="planet-card-body">
-                        <div class="planet-stat">
-                            <span class="stat-label">CONDITION</span>
-                            <span class="stat-value condition-hot">Arid / Clear</span>
-                        </div>
-                        <div class="planet-stat">
-                            <span class="stat-label">TEMPERATURE</span>
-                            <span class="stat-value">58°C</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="planet-card">
-                    <div class="planet-card-header">
-                        <span class="planet-icon">🌍</span>
-                        <h3 class="planet-name">Risa</h3>
-                    </div>
-                    <div class="planet-card-body">
-                        <div class="planet-stat">
-                            <span class="stat-label">CONDITION</span>
-                            <span class="stat-value condition-mild">Tropical / Sunny</span>
-                        </div>
-                        <div class="planet-stat">
-                            <span class="stat-label">TEMPERATURE</span>
-                            <span class="stat-value">28°C</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="planet-card">
-                    <div class="planet-card-header">
-                        <span class="planet-icon">❄️</span>
-                        <h3 class="planet-name">Andoria</h3>
-                    </div>
-                    <div class="planet-card-body">
-                        <div class="planet-stat">
-                            <span class="stat-label">CONDITION</span>
-                            <span class="stat-value condition-cold">Blizzard</span>
-                        </div>
-                        <div class="planet-stat">
-                            <span class="stat-label">TEMPERATURE</span>
-                            <span class="stat-value">-42°C</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Saved Planets Tab -->
-        <div class="tab-panel" id="saved-planets">
-            <div class="planet-grid">
-                <div class="planet-card">
-                    <div class="planet-card-header">
-                        <span class="planet-icon">🌑</span>
-                        <h3 class="planet-name">Qo'noS</h3>
-                    </div>
-                    <div class="planet-card-body">
-                        <div class="planet-stat">
-                            <span class="stat-label">CONDITION</span>
-                            <span class="stat-value condition-storm">Stormy</span>
-                        </div>
-                        <div class="planet-stat">
-                            <span class="stat-label">TEMPERATURE</span>
-                            <span class="stat-value">34°C</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="planet-card">
-                    <div class="planet-card-header">
-                        <span class="planet-icon">🌿</span>
-                        <h3 class="planet-name">Bajor</h3>
-                    </div>
-                    <div class="planet-card-body">
-                        <div class="planet-stat">
-                            <span class="stat-label">CONDITION</span>
-                            <span class="stat-value condition-mild">Partly Cloudy</span>
-                        </div>
-                        <div class="planet-stat">
-                            <span class="stat-label">TEMPERATURE</span>
-                            <span class="stat-value">22°C</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
     </div>
 </section>
-
-<script>
-    function switchTab(tabId, btn) {
-        document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-        document.getElementById(tabId).classList.add('active');
-        btn.classList.add('active');
-    }
-</script>

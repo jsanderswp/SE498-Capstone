@@ -14,9 +14,9 @@ public class PlanetProxyController : ControllerBase
     [HttpGet("search")]
     public async Task<IActionResult> Search([FromQuery] string q)
     {
-        var client = _httpClientFactory.CreateClient();
+        var client = _httpClientFactory.CreateClient("StarTrekWeatherAPI");
         var response = await client.GetAsync(
-            $"http://api:8080/api/planet/search?q={Uri.EscapeDataString(q)}");
+            $"api/planet/search?q={Uri.EscapeDataString(q)}");
 
         if (!response.IsSuccessStatusCode)
             return StatusCode((int)response.StatusCode);
