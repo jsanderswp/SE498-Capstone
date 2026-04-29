@@ -20,6 +20,7 @@ public class PlanetInfoModel : PageModel
     public string AtmosphericPressure { get; set; } = "";
     public string SolarSystem { get; set; } = "";
     public string Description { get; set; } = "";
+    public string ImageUrl { get; set; } = "";
     public bool IsLoggedIn { get; set; }
     public string? SaveMessage { get; set; }
 
@@ -80,6 +81,7 @@ public class PlanetInfoModel : PageModel
             AtmosphericPressure = result.AtmosphericPressure.ToString("0.#");
             SolarSystem = result.SolarSystem;
             Description = result.Description;
+            ImageUrl = result.ImageUrl;
 
             return Page();
         }
@@ -97,5 +99,6 @@ public class PlanetInfoModel : PageModel
         public float MinTemp { get; set; }
         public string SolarSystem { get; set; } = "";
         public string Description { get; set; } = "";
+        public string ImageUrl { get; set; } = "";
     }
 }
