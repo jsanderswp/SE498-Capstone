@@ -23,18 +23,24 @@
                 <div class="planet-grid">
                     @foreach (var planet in Model.SavedPlanets)
                     {
-                        <a class="planet-card" href="/PlanetInfo?planet=@Uri.EscapeDataString(planet)">
+                        <div class="planet-card">
                             <div class="planet-card-header">
                                 <span class="planet-icon">🪐</span>
-                                <h3 class="planet-name">@planet</h3>
+                                <h3 class="planet-name">
+                                    <a class="saved-planet-link" href="/PlanetInfo?planet=@Uri.EscapeDataString(planet)">@planet</a>
+                                </h3>
                             </div>
                             <div class="planet-card-body">
                                 <div class="planet-stat">
                                     <span class="stat-label">STATUS</span>
                                     <span class="stat-value condition-mild">Saved</span>
                                 </div>
+                                <form method="post" asp-page-handler="Remove">
+                                    <input type="hidden" name="planetName" value="@planet" />
+                                    <button type="submit" class="saved-planet-remove">Unsave</button>
+                                </form>
                             </div>
-                        </a>
+                        </div>
                     }
                 </div>
             }
