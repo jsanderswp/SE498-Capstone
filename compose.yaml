@@ -62,6 +62,7 @@ services:
         condition: service_healthy
     environment:
       ConnectionStrings__DefaultConnection: "Host=api-db;Port=5432;Database=StarTrekAPIDB;Username=postgres;Password=K0rmaVindal00!!"
+      PublicBaseUrl: "http://localhost:5002"
     ports:
       - "5002:8080"
 
