@@ -4,11 +4,21 @@
     ViewData["Title"] = "Home";
 }
 
-<section class="hero-section">
+<section class="hero-section" id="heroSection">
+    <div class="hero-bg hero-bg-startrek"></div>
+    <div class="hero-bg hero-bg-pokemon"></div>
     <div class="hero-content">
         <p class="hero-eyebrow">STARFLEET METEOROLOGICAL DIVISION</p>
         <h1 class="hero-title">Starfleet<br>Weather</h1>
         <p class="hero-subtitle">Explore atmospheric conditions across the galaxy.</p>
+
+        <button type="button" class="theme-toggle" id="themeToggle"
+                role="switch" aria-checked="false"
+                aria-label="Switch between Star Trek and Pokémon themes">
+            <span class="theme-toggle-icon theme-toggle-icon--left" aria-hidden="true">✦</span>
+            <span class="theme-toggle-icon theme-toggle-icon--right" aria-hidden="true">◉</span>
+            <span class="theme-toggle-knob"></span>
+        </button>
 
         <div class="search-wrapper">
     <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -75,5 +85,14 @@
 
     document.addEventListener('click', (e) => {
         if (!e.target.closest('.search-wrapper')) hideDropdown();
+    });
+
+    // Theme toggle: flips background crossfade + slider position
+    const themeToggle = document.getElementById('themeToggle');
+    const heroSection = document.getElementById('heroSection');
+    themeToggle.addEventListener('click', () => {
+        const isPokemon = heroSection.classList.toggle('theme-pokemon');
+        themeToggle.classList.toggle('is-on', isPokemon);
+        themeToggle.setAttribute('aria-checked', isPokemon ? 'true' : 'false');
     });
 </script>
