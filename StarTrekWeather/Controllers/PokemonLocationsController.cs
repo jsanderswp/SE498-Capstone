@@ -2,15 +2,17 @@ using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using System.Net.Http.Headers;
 
-namespace StarTrekWeather.Models;
+namespace StarTrekWeather.Controllers;
 
-public class PokemonLocationsController
+[ApiController]
+[Route("[controller]")]
+public class PokemonLocationsController : ControllerBase
 {
     private readonly HttpClient _client;
 
     public PokemonLocationsController(IHttpClientFactory httpClientFactory)
     {
-        _client = httpClientFactory.CreateClient("PokemonLocaationsAPI");
+        _client = httpClientFactory.CreateClient("PokemonLocationsAPI");
     }
     
     [HttpGet("locations")]
