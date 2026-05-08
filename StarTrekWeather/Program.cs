@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.OpenApi;
 using StarTrekWeather.Data;
 using StarTrekWeather.Services;
+using System.Net.Http.Headers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,7 @@ builder.Services.AddControllers();
 builder.Services.AddHttpClient();
 builder.Services.AddOpenApi();
 builder.Services.AddScoped<TempService>();
+
 
 builder.Services.AddHttpClient("StarTrekWeatherAPI", client =>
 {
