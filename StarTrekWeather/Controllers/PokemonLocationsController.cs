@@ -2,11 +2,13 @@ namespace StarTrekWeather.Models;
 
 public class PokemonLocationsController
 {
-    private readonly string _apiKey;
+    private readonly HttpClient _client;
 
-    public MyController(IConfiguration configuration)
+    public PokemonLocationsController(IHttpClientFactory httpClientFactory)
     {
-        _apiKey = configuration["MY_API_KEY"];
+        _client = httpClientFactory.CreateClient("ExternalApi");
     }
+    
+    
 }
 
