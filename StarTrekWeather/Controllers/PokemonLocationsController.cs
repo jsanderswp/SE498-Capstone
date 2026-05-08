@@ -17,6 +17,20 @@ public class PokemonLocationsController
         return Ok(await response.Content.ReadAsStringAsync());
     }
     
-    
+    [HttpGet("locations/{locationId}/buildings")]
+    public async Task<IActionResult> GetBuildings(int locationId)
+    {
+        var response = await _client.GetAsync($"/locations/{locationId}/buildings");
+        if (response.StatusCode == HttpStatusCode.NotFound) return NotFound();
+        return Ok(await response.Content.ReadAsStringAsync());
+    }
+
+    [HttpGet("locations/{locationId}/buildings/{buildingId}")]
+    public async Task<IActionResult> GetBuilding(int locationId, int buildingId)
+    {
+        var response = await _client.GetAsync($"/locations/{locationId}/buildings/{buildingId}");
+        if (response.StatusCode == HttpStatusCode.NotFound) return NotFound();
+        return Ok(await response.Content.ReadAsStringAsync());
+    }
 }
 
