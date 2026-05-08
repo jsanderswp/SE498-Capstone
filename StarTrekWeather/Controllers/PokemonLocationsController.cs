@@ -6,7 +6,7 @@ public class PokemonLocationsController
 
     public PokemonLocationsController(IHttpClientFactory httpClientFactory)
     {
-        _client = httpClientFactory.CreateClient("ExternalApi");
+        _client = httpClientFactory.CreateClient("PokemonLocaationsAPI");
     }
     
     [HttpGet("locations")]
