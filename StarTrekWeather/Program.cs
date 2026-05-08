@@ -21,6 +21,14 @@ builder.Services.AddHttpClient("StarTrekWeatherAPI", client =>
         new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", credentials);
 });
 
+builder.Services.AddHttpClient("PokemonLocationsAPI", client =>
+{
+    client.BaseAddress = new Uri("http://host.containers.internal:8081");
+    client.DefaultRequestHeaders.Authorization = 
+        new AuthenticationHeaderValue("Bearer", builder.Configuration["EXTERNAL_API_KEY"]);
+});
+
+
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
