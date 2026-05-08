@@ -30,6 +30,8 @@ services:
     environment:
       ConnectionStrings__DefaultConnection: "Host=web-db;Port=5432;Database=StarTrekWeatherDB;Username=postgres;Password=K0rmaVindal00!!"
       PlanetApi__BaseUrl: "http://api:8080"
+    env_file:
+      - .env
     ports:
       - "5001:8080"
 
