@@ -1,3 +1,7 @@
+using Microsoft.AspNetCore.Mvc;
+using System.Net;
+using System.Net.Http.Headers;
+
 namespace StarTrekWeather.Models;
 
 public class PokemonLocationsController
