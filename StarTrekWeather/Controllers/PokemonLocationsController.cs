@@ -32,5 +32,21 @@ public class PokemonLocationsController
         if (response.StatusCode == HttpStatusCode.NotFound) return NotFound();
         return Ok(await response.Content.ReadAsStringAsync());
     }
+    
+    [HttpGet("gyms")]
+    public async Task<IActionResult> GetGyms()
+    {
+        var response = await _client.GetAsync("/gyms");
+        if (!response.IsSuccessStatusCode) return StatusCode((int)response.StatusCode);
+        return Ok(await response.Content.ReadAsStringAsync());
+    }
+
+    [HttpGet("gyms/{gymId}")]
+    public async Task<IActionResult> GetGym(int gymId)
+    {
+        var response = await _client.GetAsync($"/gyms/{gymId}");
+        if (response.StatusCode == HttpStatusCode.NotFound) return NotFound();
+        return Ok(await response.Content.ReadAsStringAsync());
+    }
 }
 
