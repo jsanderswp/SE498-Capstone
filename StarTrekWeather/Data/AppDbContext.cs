@@ -9,6 +9,7 @@ namespace  StarTrekWeather.Data {
         public DbSet<UserPlanet> UserPlanets => Set<UserPlanet>();
         public DbSet<UserPokemonLocation> UserPokemonLocations => Set<UserPokemonLocation>();
         public DbSet<UserPokemonLocationGym> UserPokemonLocationGyms => Set<UserPokemonLocationGym>();
+        public DbSet<UserPokemonLocationBuilding> UserPokemonLocationBuildings => Set<UserPokemonLocationBuilding>();
  
         public AppDbContext(DbContextOptions<AppDbContext> options)
             : base(options)
@@ -95,6 +96,33 @@ namespace  StarTrekWeather.Data {
                 entity.HasOne(g => g.UserPokemonLocation)
                     .WithMany()
                     .HasForeignKey(g => new { g.Username, g.LocationName })
+                    .OnDelete(DeleteBehavior.Cascade);
+            });
+            // USER_POKEMON_LOCATION_BUILDINGS
+            modelBuilder.Entity<UserPokemonLocationBuilding>(entity =>
+            {
+                entity.ToTable("user_pokemon_location_buildings");
+ 
+                entity.HasKey(b => b.Id);
+ 
+                entity.Property(b => b.Id)
+                    .HasColumnName("id")
+                    .ValueGeneratedOnAdd();
+ 
+                entity.Property(b => b.Username)
+                    .HasColumnName("users_username");
+ 
+                entity.Property(b => b.LocationName)
+                    .HasColumnName("location_name")
+                    .HasMaxLength(100);
+ 
+                entity.Property(b => b.BuildingName)
+                    .HasColumnName("building_name")
+                    .HasMaxLength(100);
+ 
+                entity.HasOne(b => b.UserPokemonLocation)
+                    .WithMany()
+                    .HasForeignKey(b => new { b.Username, b.LocationName })
                     .OnDelete(DeleteBehavior.Cascade);
             });
         }
