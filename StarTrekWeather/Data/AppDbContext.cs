@@ -94,7 +94,7 @@ namespace  StarTrekWeather.Data {
                     .HasMaxLength(100);
  
                 entity.HasOne(g => g.UserPokemonLocation)
-                    .WithMany()
+                    .WithMany(ul => ul.Gyms)
                     .HasForeignKey(g => new { g.Username, g.LocationName })
                     .OnDelete(DeleteBehavior.Cascade);
             });
@@ -121,7 +121,7 @@ namespace  StarTrekWeather.Data {
                     .HasMaxLength(100);
  
                 entity.HasOne(b => b.UserPokemonLocation)
-                    .WithMany()
+                    .WithMany(ul => ul.Buildings)
                     .HasForeignKey(b => new { b.Username, b.LocationName })
                     .OnDelete(DeleteBehavior.Cascade);
             });
