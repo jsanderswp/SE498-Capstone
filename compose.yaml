@@ -14,7 +14,7 @@ services:
       POSTGRES_PASSWORD: K0rmaVindal00!!
       POSTGRES_DB: StarTrekWeatherDB
     ports:
-      - "5432:5432"
+      - "5434:5432"
     volumes:
       - pg_data:/var/lib/postgresql/data
       - ./StarTrekWeather/StarTrekWeather_create.sql:/docker-entrypoint-initdb.d/StarTrekWeather_create.sql
@@ -30,6 +30,8 @@ services:
     environment:
       ConnectionStrings__DefaultConnection: "Host=web-db;Port=5432;Database=StarTrekWeatherDB;Username=postgres;Password=K0rmaVindal00!!"
       PlanetApi__BaseUrl: "http://api:8080"
+    env_file:
+      - .env
     ports:
       - "5001:8080"
 

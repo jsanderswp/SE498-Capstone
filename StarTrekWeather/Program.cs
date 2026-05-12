@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.OpenApi;
 using StarTrekWeather.Data;
 using StarTrekWeather.Services;
+using System.Net.Http.Headers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +13,7 @@ builder.Services.AddHttpClient();
 builder.Services.AddOpenApi();
 builder.Services.AddScoped<TempService>();
 
+
 builder.Services.AddHttpClient("StarTrekWeatherAPI", client =>
 {
     client.BaseAddress = new Uri("http://api:8080/");
@@ -20,6 +22,17 @@ builder.Services.AddHttpClient("StarTrekWeatherAPI", client =>
     client.DefaultRequestHeaders.Authorization =
         new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", credentials);
 });
+
+builder.Services.AddHttpClient("PokemonLocationsAPI", client =>
+{
+    client.BaseAddress = new Uri("http://host.containers.internal:8080");
+    client.DefaultRequestHeaders.Authorization = 
+        new AuthenticationHeaderValue("Bearer", builder.Configuration["EXTERNAL_API_KEY"]);
+}).ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
+{
+    ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+});
+
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
