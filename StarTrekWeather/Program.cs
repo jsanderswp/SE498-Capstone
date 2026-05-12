@@ -25,8 +25,8 @@ builder.Services.AddHttpClient("StarTrekWeatherAPI", client =>
 
 builder.Services.AddHttpClient("PokemonLocationsAPI", client =>
 {
-    client.BaseAddress = new Uri("http://host.containers.internal:8080");
-    client.DefaultRequestHeaders.Authorization = 
+    client.BaseAddress = new Uri("http://pokemon-locations-api:8080");
+    client.DefaultRequestHeaders.Authorization =
         new AuthenticationHeaderValue("Bearer", builder.Configuration["EXTERNAL_API_KEY"]);
 }).ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
 {

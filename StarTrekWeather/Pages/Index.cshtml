@@ -40,7 +40,14 @@
         clearBtn.style.opacity = q.length > 0 ? '1' : '0';
         clearTimeout(debounceTimer);
         if (q.length < 1) { hideDropdown(); return; }
-        debounceTimer = setTimeout(() => fetchSuggestions(q), 200);
+        debounceTimer = setTimeout(() => {
+            const isPokemon = document.getElementById('heroSection').classList.contains('theme-pokemon');
+            if (isPokemon) {
+                fetchPokemonSuggestions(q);
+            } else {
+                fetchSuggestions(q);
+            }
+        }, 200);
     });
 
     async function fetchSuggestions(q) {
@@ -61,6 +68,54 @@
             dropdown.classList.add('active');
         } catch (err) {
             console.error('Search error:', err);
+        }
+    }
+
+    // Pokemon: fetch all locations once, cache, then filter client-side
+    let pokemonLocationsCache = null;
+    let pokemonLocationsPromise = null;
+
+    async function getPokemonLocations() {
+        if (pokemonLocationsCache) return pokemonLocationsCache;
+        if (pokemonLocationsPromise) return pokemonLocationsPromise;
+        pokemonLocationsPromise = (async () => {
+            const res = await fetch('/pokemonlocations/locations');
+            if (!res.ok) throw new Error('Pokemon API unreachable');
+            let data = await res.json();
+            // Controller returns Ok(string) — may double-wrap as a JSON string
+            if (typeof data === 'string') {
+                try { data = JSON.parse(data); } catch { data = []; }
+            }
+            const list = Array.isArray(data) ? data : (data.locations || data.items || []);
+            pokemonLocationsCache = list;
+            return list;
+        })();
+        return pokemonLocationsPromise;
+    }
+
+    async function fetchPokemonSuggestions(q) {
+        try {
+            const all = await getPokemonLocations();
+            const lower = q.toLowerCase();
+            const matches = all
+                .filter(loc => (loc.name || '').toLowerCase().includes(lower))
+                .slice(0, 5);
+            dropdown.innerHTML = '';
+            if (matches.length === 0) { hideDropdown(); return; }
+            matches.forEach(loc => {
+                const li = document.createElement('li');
+                li.className = 'search-dropdown-item';
+                li.textContent = loc.name;
+                li.addEventListener('click', () => {
+                    const id = loc.locationId ?? loc.id ?? encodeURIComponent(loc.name || '');
+                    window.location.href = `/PokemonLocationInfo?id=${id}`;
+                });
+                dropdown.appendChild(li);
+            });
+            dropdown.classList.add('active');
+        } catch (err) {
+            console.error('Pokemon search error:', err);
+            hideDropdown();
         }
     }
 
@@ -87,12 +142,48 @@
         if (!e.target.closest('.search-wrapper')) hideDropdown();
     });
 
-    // Theme toggle: flips background crossfade + slider position
+    // Theme toggle: flips background crossfade, slider position, and hero copy
     const themeToggle = document.getElementById('themeToggle');
     const heroSection = document.getElementById('heroSection');
+    const heroEyebrow = document.querySelector('.hero-eyebrow');
+    const heroTitle = document.querySelector('.hero-title');
+    const heroSubtitle = document.querySelector('.hero-subtitle');
+    const searchInput = document.getElementById('planetSearch');
+
+    const themeCopy = {
+        startrek: {
+            eyebrow: 'STARFLEET METEOROLOGICAL DIVISION',
+            title: 'Starfleet<br>Weather',
+            subtitle: 'Explore atmospheric conditions across the galaxy.',
+            placeholder: 'Search a planet...'
+        },
+        pokemon: {
+            eyebrow: 'POKÉMON WORLD ATLAS',
+            title: 'Pokémon<br>Locations',
+            subtitle: 'Explore towns, routes, and gyms across every region.',
+            placeholder: 'Search a location...'
+        }
+    };
+
     themeToggle.addEventListener('click', () => {
         const isPokemon = heroSection.classList.toggle('theme-pokemon');
         themeToggle.classList.toggle('is-on', isPokemon);
         themeToggle.setAttribute('aria-checked', isPokemon ? 'true' : 'false');
+
+        // Clear stale results from the previous source
+        searchInput.value = '';
+        clearBtn.style.opacity = '0';
+        hideDropdown();
+
+        // Fade copy out, swap, fade back in — synced halfway through the bg crossfade
+        heroSection.classList.add('is-swapping');
+        setTimeout(() => {
+            const copy = isPokemon ? themeCopy.pokemon : themeCopy.startrek;
+            heroEyebrow.innerHTML = copy.eyebrow;
+            heroTitle.innerHTML = copy.title;
+            heroSubtitle.innerHTML = copy.subtitle;
+            searchInput.placeholder = copy.placeholder;
+            heroSection.classList.remove('is-swapping');
+        }, 300);
     });
 </script>
