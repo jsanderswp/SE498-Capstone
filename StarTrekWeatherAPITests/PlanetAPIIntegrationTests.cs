@@ -4,37 +4,42 @@ using System.Text;
 using System.Text.Json;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
  
 namespace StarTrekWeatherAPITests
 {
-    // ---------------------------------------------------------------------------
-    // Custom WebApplicationFactory — swaps Postgres for SQLite in-memory
-    // and seeds a known set of planets
-    // ---------------------------------------------------------------------------
     public class ApiTestWebAppFactory : WebApplicationFactory<Program>
     {
+        // Keep the connection alive for the lifetime of the factory
+        // so the in-memory SQLite database isn't destroyed between requests
+        private readonly SqliteConnection _keepAliveConnection = new("DataSource=:memory:");
+ 
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
+            _keepAliveConnection.Open();
+ 
             builder.ConfigureServices(services =>
             {
-                // Remove the real Postgres DbContext registration
-                var descriptor = services.SingleOrDefault(
-                    d => d.ServiceType == typeof(DbContextOptions<ApiDbContext>));
-                if (descriptor != null)
-                    services.Remove(descriptor);
+                // Remove all EF-related registrations to avoid dual provider conflict
+                var descriptors = services
+                    .Where(d => d.ServiceType == typeof(DbContextOptions<ApiDbContext>)
+                             || d.ServiceType == typeof(ApiDbContext)
+                             || (d.ServiceType.FullName?.StartsWith("Microsoft.EntityFrameworkCore") == true))
+                    .ToList();
+                foreach (var d in descriptors)
+                    services.Remove(d);
  
-                // Add SQLite in-memory database
+                // Add SQLite using the shared keep-alive connection
                 services.AddDbContext<ApiDbContext>(options =>
-                    options.UseSqlite("DataSource=:memory:"));
+                    options.UseSqlite(_keepAliveConnection));
  
                 // Create schema and seed test planets
                 var sp = services.BuildServiceProvider();
                 using var scope = sp.CreateScope();
                 var db = scope.ServiceProvider.GetRequiredService<ApiDbContext>();
-                db.Database.OpenConnection();
                 db.Database.EnsureCreated();
  
                 db.Planets.AddRange(
@@ -72,11 +77,15 @@ namespace StarTrekWeatherAPITests
                 db.SaveChanges();
             });
         }
+ 
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
+            if (disposing)
+                _keepAliveConnection.Dispose();
+        }
     }
  
-    // ---------------------------------------------------------------------------
-    // Helper — builds a valid Basic Auth header
-    // ---------------------------------------------------------------------------
     file static class Auth
     {
         public static AuthenticationHeaderValue ValidHeader()
@@ -316,19 +325,16 @@ namespace StarTrekWeatherAPITests
         }
  
         [Fact]
-        public async Task Search_EmptyQuery_ReturnsEmptyList()
+        public async Task Search_EmptyQuery_Returns400()
         {
+            // Empty string fails non-nullable [FromQuery] string q — ASP.NET returns 400
             var response = await _client.GetAsync("/api/planet/search?q=");
-            var planets = await ResponseHelper.ReadAsync<List<Planet>>(response);
- 
-            Assert.NotNull(planets);
-            Assert.Empty(planets);
+            Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
         }
  
         [Fact]
         public async Task Search_ReturnsAtMostFiveResults()
         {
-            // "a" matches Vulcan, Risa, Andoria — all three in our seed
             var response = await _client.GetAsync("/api/planet/search?q=a");
             var planets = await ResponseHelper.ReadAsync<List<Planet>>(response);
  

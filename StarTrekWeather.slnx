@@ -1,2 +1,4 @@
 <Solution>
+  <Project Path="StarTrekWeatherAPI/StarTrekWeatherAPI.csproj" />
+  <Project Path="StarTrekWeatherAPITests/StarTrekWeatherAPITests.csproj" />
 </Solution>
