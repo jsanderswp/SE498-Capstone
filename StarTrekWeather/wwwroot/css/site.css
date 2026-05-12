@@ -1056,3 +1056,16 @@ body {
     background: linear-gradient(145deg, #ffffff 0%, #ffcb05 50%, #d11f25 100%);
 }
 
+/* Crossfade hero copy when theme toggles */
+.hero-eyebrow,
+.hero-title,
+.hero-subtitle {
+    transition: opacity 300ms ease;
+}
+
+.hero-section.is-swapping .hero-eyebrow,
+.hero-section.is-swapping .hero-title,
+.hero-section.is-swapping .hero-subtitle {
+    opacity: 0;
+}
+
