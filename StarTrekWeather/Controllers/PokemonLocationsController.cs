@@ -33,6 +33,55 @@ public class PokemonLocationsController : ControllerBase
         if (!response.IsSuccessStatusCode) return StatusCode((int)response.StatusCode);
         return Ok(await response.Content.ReadAsStringAsync());
     }
+
+    // GET pokemonlocations/search?q=...
+    [HttpGet("search")]
+    public async Task<IActionResult> Search([FromQuery] string q)
+    {
+        if (string.IsNullOrWhiteSpace(q))
+            return Ok(Array.Empty<object>());
+
+        var response = await _client.GetAsync("/Locations");
+        if (!response.IsSuccessStatusCode) return StatusCode((int)response.StatusCode);
+
+        var content = await response.Content.ReadAsStringAsync();
+        if (content.StartsWith("\""))
+        {
+            content = System.Text.Json.JsonSerializer.Deserialize<string>(content) ?? "[]";
+        }
+
+        var locations = System.Text.Json.JsonSerializer.Deserialize<List<PokemonLocationDto>>(
+            content,
+            new System.Text.Json.JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            }) ?? new List<PokemonLocationDto>();
+
+        var matches = locations
+            .Where(loc => !string.IsNullOrWhiteSpace(loc.Name) &&
+                          loc.Name.Contains(q, StringComparison.OrdinalIgnoreCase))
+            .Select(loc => new { id = loc.LocationId, name = loc.Name })
+            .Take(5)
+            .ToList();
+
+        return Ok(matches);
+    }
+
+    // GET pokemonlocations/locations/{locationId}
+    [HttpGet("locations/{locationId}")]
+    public async Task<IActionResult> GetLocation(int locationId)
+    {
+        var response = await _client.GetAsync($"/Locations/{locationId}");
+        if (response.StatusCode == HttpStatusCode.NotFound) return NotFound();
+        if (!response.IsSuccessStatusCode) return StatusCode((int)response.StatusCode);
+        return Ok(await response.Content.ReadAsStringAsync());
+    }
+
+    private class PokemonLocationDto
+    {
+        public int LocationId { get; set; }
+        public string Name { get; set; } = string.Empty;
+    }
  
     // GET pokemonlocations/locations/{locationId}/buildings
     [HttpGet("locations/{locationId}/buildings")]

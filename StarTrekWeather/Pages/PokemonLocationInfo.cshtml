@@ -1,0 +1,75 @@
+@page
+@model PokemonLocationInfoModel
+@{
+    ViewData["Title"] = "Pokemon Location Info";
+}
+
+<section class="planet-info-page">
+    <div class="planet-info-overlay"></div>
+
+    <div class="planet-info-content">
+        <div class="planet-copy">
+            <p class="planet-hero-label">Pokemon Location Record</p>
+            <h1 class="planet-hero-title">@Model.LocationName</h1>
+            <p class="planet-hero-subtitle">
+                Regional conditions, landmarks, and gym data
+            </p>
+
+            <div class="planet-stats-card">
+                <div class="planet-stat">
+                    <span class="planet-stat-label">Current Temperature</span>
+                    <span class="planet-stat-value">@Model.CurrentTemp</span>
+                </div>
+
+                <div class="planet-stat">
+                    <span class="planet-stat-label">Buildings</span>
+                    <span class="planet-stat-value">@Model.Buildings.Count</span>
+                </div>
+
+                <div class="planet-stat">
+                    <span class="planet-stat-label">Gyms</span>
+                    <span class="planet-stat-value">@Model.Gyms.Count</span>
+                </div>
+            </div>
+
+            <p class="planet-description">@Model.Description</p>
+
+            @if (!string.IsNullOrEmpty(Model.SaveMessage))
+            {
+                <div class="alert alert-success">@Model.SaveMessage</div>
+            }
+
+            @if (Model.IsLoggedIn)
+            {
+                <form method="post" asp-page-handler="Save">
+                    <input type="hidden" name="id" value="@Model.LocationId" />
+                    <button type="submit" class="auth-submit">Save Location</button>
+                </form>
+            }
+            else
+            {
+                <p class="auth-hint">Log in to save this location.</p>
+            }
+
+            @if (Model.Buildings.Count > 0)
+            {
+                <div class="planet-stats-card" style="margin-top: 1.5rem;">
+                    <div class="planet-stat">
+                        <span class="planet-stat-label">Landmarks</span>
+                        <span class="planet-stat-value">@string.Join(", ", Model.Buildings)</span>
+                    </div>
+                </div>
+            }
+
+            @if (Model.Gyms.Count > 0)
+            {
+                <div class="planet-stats-card" style="margin-top: 1rem;">
+                    <div class="planet-stat">
+                        <span class="planet-stat-label">Gym Leaders</span>
+                        <span class="planet-stat-value">@string.Join(", ", Model.Gyms)</span>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>

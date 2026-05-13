@@ -1,16 +1,38 @@
 @page
 @model IndexModel
+@using Microsoft.AspNetCore.Http
 @{
     ViewData["Title"] = "Home";
+    var appMode = HttpContext.Session.GetString("AppMode") ?? "startrek";
+    var isPokemonMode = appMode == "pokemon";
 }
 
-<section class="hero-section" id="heroSection">
+
+<section class="hero-section @(isPokemonMode ? "theme-pokemon" : "")" id="heroSection">
     <div class="hero-bg hero-bg-startrek"></div>
     <div class="hero-bg hero-bg-pokemon"></div>
     <div class="hero-content">
-        <p class="hero-eyebrow">STARFLEET METEOROLOGICAL DIVISION</p>
-        <h1 class="hero-title">Starfleet<br>Weather</h1>
-        <p class="hero-subtitle">Explore atmospheric conditions across the galaxy.</p>
+        <p class="hero-eyebrow">
+    		@(isPokemonMode ? "POKEMON LOCATION FORECAST NETWORK" : "STARFLEET METEOROLOGICAL DIVISION")
+		</p>
+
+		<h1 class="hero-title">
+    		@if (isPokemonMode)
+    		{
+        		@:Poke<br>Cast
+    		}
+    		else
+    		{
+        		@:Starfleet<br>Weather
+    		}
+		</h1>
+
+		<p class="hero-subtitle">
+    		@(isPokemonMode
+        		? "Explore weather and landmarks across the Pokemon world."
+        		: "Explore atmospheric conditions across the galaxy.")
+		</p>
+
 
         <button type="button" class="theme-toggle" id="themeToggle"
                 role="switch" aria-checked="false"
@@ -24,12 +46,13 @@
     <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
     </svg>
-    <input type="text" class="planet-search" placeholder="Search a planet..." id="planetSearch" autocomplete="off" />
+    <input type="text" class="planet-search" placeholder="@(isPokemonMode ? "Search a Pokemon location..." : "Search a planet...")" id="planetSearch" autocomplete="off" />
     <button class="search-clear" id="clearSearch" aria-label="Clear search">&#x2715;</button>
     <ul class="search-dropdown" id="searchDropdown"></ul>
 </div>
 
 <script>
+    let currentMode = '@(isPokemonMode ? "pokemon" : "startrek")';
     const input = document.getElementById('planetSearch');
     const clearBtn = document.getElementById('clearSearch');
     const dropdown = document.getElementById('searchDropdown');
@@ -71,35 +94,10 @@
         }
     }
 
-    // Pokemon: fetch all locations once, cache, then filter client-side
-    let pokemonLocationsCache = null;
-    let pokemonLocationsPromise = null;
-
-    async function getPokemonLocations() {
-        if (pokemonLocationsCache) return pokemonLocationsCache;
-        if (pokemonLocationsPromise) return pokemonLocationsPromise;
-        pokemonLocationsPromise = (async () => {
-            const res = await fetch('/pokemonlocations/locations');
-            if (!res.ok) throw new Error('Pokemon API unreachable');
-            let data = await res.json();
-            // Controller returns Ok(string) — may double-wrap as a JSON string
-            if (typeof data === 'string') {
-                try { data = JSON.parse(data); } catch { data = []; }
-            }
-            const list = Array.isArray(data) ? data : (data.locations || data.items || []);
-            pokemonLocationsCache = list;
-            return list;
-        })();
-        return pokemonLocationsPromise;
-    }
-
     async function fetchPokemonSuggestions(q) {
         try {
-            const all = await getPokemonLocations();
-            const lower = q.toLowerCase();
-            const matches = all
-                .filter(loc => (loc.name || '').toLowerCase().includes(lower))
-                .slice(0, 5);
+            const res = await fetch(`/pokemonlocations/search?q=${encodeURIComponent(q)}`);
+            const matches = await res.json();
             dropdown.innerHTML = '';
             if (matches.length === 0) { hideDropdown(); return; }
             matches.forEach(loc => {
@@ -149,6 +147,9 @@
     const heroTitle = document.querySelector('.hero-title');
     const heroSubtitle = document.querySelector('.hero-subtitle');
     const searchInput = document.getElementById('planetSearch');
+    const appTitlePrimary = document.getElementById('appTitlePrimary');
+    const appTitleSecondary = document.getElementById('appTitleSecondary');
+    const appDocumentTitle = document.getElementById('appDocumentTitle');
 
     const themeCopy = {
         startrek: {
@@ -158,15 +159,28 @@
             placeholder: 'Search a planet...'
         },
         pokemon: {
-            eyebrow: 'POKÉMON WORLD ATLAS',
-            title: 'Pokémon<br>Locations',
-            subtitle: 'Explore towns, routes, and gyms across every region.',
-            placeholder: 'Search a location...'
+            eyebrow: 'POKEMON LOCATION FORECAST NETWORK',
+            title: 'Poke<br>Cast',
+            subtitle: 'Explore weather and landmarks across the Pokemon world.',
+            placeholder: 'Search a Pokemon location...',
+            navPrimary: 'POKE',
+            navSecondary: 'CAST',
+            appName: 'PokeCast'
         }
     };
 
-    themeToggle.addEventListener('click', () => {
+    themeCopy.startrek.navPrimary = 'TREK';
+    themeCopy.startrek.navSecondary = 'TEMP';
+    themeCopy.startrek.appName = 'TrekTemp';
+
+    if (currentMode === 'pokemon') {
+        themeToggle.classList.add('is-on');
+        themeToggle.setAttribute('aria-checked', 'true');
+    }
+
+    themeToggle.addEventListener('click', async () => {
         const isPokemon = heroSection.classList.toggle('theme-pokemon');
+        currentMode = isPokemon ? 'pokemon' : 'startrek';
         themeToggle.classList.toggle('is-on', isPokemon);
         themeToggle.setAttribute('aria-checked', isPokemon ? 'true' : 'false');
 
@@ -183,7 +197,26 @@
             heroTitle.innerHTML = copy.title;
             heroSubtitle.innerHTML = copy.subtitle;
             searchInput.placeholder = copy.placeholder;
+            if (appTitlePrimary && appTitleSecondary) {
+                appTitlePrimary.textContent = copy.navPrimary;
+                appTitleSecondary.textContent = copy.navSecondary;
+            }
+            if (appDocumentTitle) {
+                const pageTitle = '@ViewData["Title"]';
+                appDocumentTitle.textContent = `${pageTitle} - ${copy.appName}`;
+                document.title = `${pageTitle} - ${copy.appName}`;
+            }
             heroSection.classList.remove('is-swapping');
         }, 300);
+
+        try {
+            await fetch('/api/appmode', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ mode: currentMode })
+            });
+        } catch (err) {
+            console.error('Failed to save app mode:', err);
+        }
     });
 </script>

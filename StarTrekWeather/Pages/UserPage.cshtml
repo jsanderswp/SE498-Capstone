@@ -12,37 +12,73 @@
         </div>
 
         <div class="tab-panel active">
-            <h2 class="auth-title">Saved Planets</h2>
+            <h2 class="auth-title">@(Model.AppMode == "pokemon" ? "Saved Pokemon Locations" : "Saved Planets")</h2>
 
-            @if (Model.SavedPlanets.Count == 0)
+            @if (Model.AppMode == "pokemon")
             {
-                <p class="auth-subtitle">You have not saved any planets yet.</p>
+                @if (Model.SavedPokemonLocations.Count == 0)
+                {
+                    <p class="auth-subtitle">You have not saved any Pokemon locations yet.</p>
+                }
+                else
+                {
+                    <div class="planet-grid">
+                        @foreach (var location in Model.SavedPokemonLocations)
+                        {
+                            <div class="planet-card">
+                                <div class="planet-card-header">
+                                    <span class="planet-icon">⚡</span>
+                                    <h3 class="planet-name">
+                                        <span class="saved-planet-link">@location</span>
+                                    </h3>
+                                </div>
+                                <div class="planet-card-body">
+                                    <div class="planet-stat">
+                                        <span class="stat-label">STATUS</span>
+                                        <span class="stat-value condition-mild">Saved</span>
+                                    </div>
+                                    <form method="post" asp-page-handler="RemovePokemon">
+                                        <input type="hidden" name="locationName" value="@location" />
+                                        <button type="submit" class="saved-planet-remove">Unsave</button>
+                                    </form>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
             }
             else
             {
-                <div class="planet-grid">
-                    @foreach (var planet in Model.SavedPlanets)
-                    {
-                        <div class="planet-card">
-                            <div class="planet-card-header">
-                                <span class="planet-icon">🪐</span>
-                                <h3 class="planet-name">
-                                    <a class="saved-planet-link" href="/PlanetInfo?planet=@Uri.EscapeDataString(planet)">@planet</a>
-                                </h3>
-                            </div>
-                            <div class="planet-card-body">
-                                <div class="planet-stat">
-                                    <span class="stat-label">STATUS</span>
-                                    <span class="stat-value condition-mild">Saved</span>
+                @if (Model.SavedPlanets.Count == 0)
+                {
+                    <p class="auth-subtitle">You have not saved any planets yet.</p>
+                }
+                else
+                {
+                    <div class="planet-grid">
+                        @foreach (var planet in Model.SavedPlanets)
+                        {
+                            <div class="planet-card">
+                                <div class="planet-card-header">
+                                    <span class="planet-icon">🪐</span>
+                                    <h3 class="planet-name">
+                                        <a class="saved-planet-link" href="/PlanetInfo?planet=@Uri.EscapeDataString(planet)">@planet</a>
+                                    </h3>
                                 </div>
-                                <form method="post" asp-page-handler="Remove">
-                                    <input type="hidden" name="planetName" value="@planet" />
-                                    <button type="submit" class="saved-planet-remove">Unsave</button>
-                                </form>
+                                <div class="planet-card-body">
+                                    <div class="planet-stat">
+                                        <span class="stat-label">STATUS</span>
+                                        <span class="stat-value condition-mild">Saved</span>
+                                    </div>
+                                    <form method="post" asp-page-handler="Remove">
+                                        <input type="hidden" name="planetName" value="@planet" />
+                                        <button type="submit" class="saved-planet-remove">Unsave</button>
+                                    </form>
+                                </div>
                             </div>
-                        </div>
-                    }
-                </div>
+                        }
+                    </div>
+                }
             }
         </div>
     </div>

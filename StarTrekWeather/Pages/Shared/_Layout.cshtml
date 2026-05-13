@@ -1,14 +1,17 @@
 @using Microsoft.AspNetCore.Http
 @{
     var currentUsername = Context.Session.GetString("Username");
+    var appMode = Context.Session.GetString("AppMode") ?? "startrek";
+    var appTitle = appMode == "pokemon" ? "PokeCast" : "TrekTemp";
 }
+
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - TrekTemp</title>
+		<title id="appDocumentTitle">@ViewData["Title"] - @appTitle</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Exo+2:wght@300;400;500&display=swap" rel="stylesheet">
@@ -19,9 +22,17 @@
 <header>
     <nav class="custom-navbar px-4">
         <div class="navbar-inner">
-            <a class="app-title" href="/">
-                <span class="title-trek">TREK</span><span class="title-temp">TEMP</span>
-            </a>
+            <a class="app-title" href="/" id="appTitleLink" data-startrek-title="TrekTemp" data-pokemon-title="PokeCast">
+    		@if (appMode == "pokemon")
+    		{
+        		<span class="title-trek" id="appTitlePrimary">POKE</span><span class="title-temp" id="appTitleSecondary">CAST</span>
+    		}
+    		else
+    		{
+        		<span class="title-trek" id="appTitlePrimary">TREK</span><span class="title-temp" id="appTitleSecondary">TEMP</span>
+    		}
+				</a>
+
 
             <div class="nav-links">
     		@if (string.IsNullOrWhiteSpace(currentUsername))
