@@ -1,10 +1,12 @@
 @page
 @model CreateAccountModel
+@using Microsoft.AspNetCore.Http
 @{
     ViewData["Title"] = "Create Account";
+    var appMode = HttpContext.Session.GetString("AppMode") ?? "startrek";
 }
 
-<section class="auth-hero">
+<section class="auth-hero @(appMode == "pokemon" ? "pokemon-theme" : "")">
     <div class="auth-hero-content">
         <div class="auth-card">
             <div class="auth-card-header">
