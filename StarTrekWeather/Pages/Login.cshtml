@@ -8,9 +8,9 @@
     <div class="auth-hero-content">
         <div class="auth-card">
             <div class="auth-card-header">
-                <p class="hero-eyebrow">STARFLEET PERSONNEL ACCESS</p>
+                <p class="hero-eyebrow">ACCOUNT ACCESS</p>
                 <h1 class="auth-title">Login</h1>
-                <p class="auth-subtitle">Authenticate with the Starfleet Meteorological Division.</p>
+                <p class="auth-subtitle">Sign in to continue exploring saved forecasts and locations.</p>
             </div>
 
             @if (!string.IsNullOrEmpty(Model.ErrorMessage))
@@ -21,7 +21,7 @@
             <form class="auth-form" method="post" autocomplete="off">
                 <div class="auth-field">
                     <label class="auth-label" asp-for="Username">Username</label>
-                    <input class="auth-input" asp-for="Username" placeholder="Cadet handle" required />
+                    <input class="auth-input" asp-for="Username" placeholder="Username" required />
                 </div>
 
                 <div class="auth-field">

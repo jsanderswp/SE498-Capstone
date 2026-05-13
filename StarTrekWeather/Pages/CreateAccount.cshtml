@@ -8,9 +8,9 @@
     <div class="auth-hero-content">
         <div class="auth-card">
             <div class="auth-card-header">
-                <p class="hero-eyebrow">STARFLEET PERSONNEL ENROLLMENT</p>
+                <p class="hero-eyebrow">ACCOUNT SETUP</p>
                 <h1 class="auth-title">Create<br>Account</h1>
-                <p class="auth-subtitle">Register your credentials with the Starfleet Meteorological Division.</p>
+                <p class="auth-subtitle">Create an account to save forecasts and favorite locations.</p>
             </div>
 
             @if (!string.IsNullOrEmpty(Model.ErrorMessage))
@@ -21,13 +21,13 @@
             <form class="auth-form" method="post" autocomplete="off">
                 <div class="auth-field">
                     <label class="auth-label" asp-for="Username">Username</label>
-                    <input class="auth-input" asp-for="Username" placeholder="Cadet handle" required />
+                    <input class="auth-input" asp-for="Username" placeholder="Username" required />
                 </div>
 
                 <div class="auth-field">
                     <label class="auth-label" asp-for="Password">Password</label>
                     <input class="auth-input" asp-for="Password" type="password" placeholder="••••••••" minlength="6" maxlength="20" required />
-                    <span class="auth-hint">Security clearance: 6-20 characters.</span>
+                    <span class="auth-hint">Use 6-20 characters.</span>
                 </div>
 
                 <button type="submit" class="auth-submit">Create Account</button>
