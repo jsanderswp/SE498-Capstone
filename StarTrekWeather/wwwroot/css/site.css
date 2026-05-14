@@ -73,6 +73,7 @@ body {
     color: var(--lcars-gold);
 }
 
+
 .app-title::after {
     content: '';
     display: block;
@@ -322,6 +323,60 @@ body {
 
 .search-clear:hover {
     color: var(--text-primary);
+}
+
+.hero-section.theme-pokemon .search-wrapper {
+    max-width: 540px;
+}
+
+.hero-section.theme-pokemon .planet-search {
+    padding: 17px 52px 17px 52px;
+    background: rgba(255, 255, 255, 0.96);
+    border: 2px solid rgba(17, 24, 39, 0.88);
+    border-radius: 18px;
+    color: #111827;
+    box-shadow: 0 14px 34px rgba(17, 24, 39, 0.14);
+    backdrop-filter: none;
+}
+
+.hero-section.theme-pokemon .planet-search::placeholder {
+    color: rgba(17, 24, 39, 0.5);
+}
+
+.hero-section.theme-pokemon .planet-search:focus {
+    border-color: #d62828;
+    background: #ffffff;
+    box-shadow: 0 0 0 4px rgba(255, 203, 5, 0.28), 0 16px 38px rgba(17, 24, 39, 0.16);
+}
+
+.hero-section.theme-pokemon .search-icon {
+    color: #d62828;
+    opacity: 0.85;
+}
+
+.hero-section.theme-pokemon .search-clear {
+    color: rgba(17, 24, 39, 0.58);
+}
+
+.hero-section.theme-pokemon .search-clear:hover {
+    color: #111827;
+}
+
+.hero-section.theme-pokemon .search-dropdown {
+    background: rgba(255, 255, 255, 0.98);
+    border: 2px solid rgba(17, 24, 39, 0.88);
+    border-radius: 18px;
+    backdrop-filter: none;
+    box-shadow: 0 20px 44px rgba(17, 24, 39, 0.16);
+}
+
+.hero-section.theme-pokemon .search-dropdown-item {
+    color: #111827;
+}
+
+.hero-section.theme-pokemon .search-dropdown-item:hover {
+    background: rgba(255, 203, 5, 0.24);
+    color: #111827;
 }
 
 /* ---- Quick Links ---- */
@@ -701,6 +756,65 @@ body {
     box-shadow: 0 16px 32px rgba(0, 0, 0, 0.22);
 }
 
+.planet-info-page.pokemon-theme {
+    background-color: #f6f2ee;
+    background-image: url('/images/PokemonBackground.jpg');
+    background-position: center right;
+    background-size: cover;
+}
+
+.planet-info-page.pokemon-theme .planet-info-overlay {
+    background:
+        linear-gradient(
+            120deg,
+            rgba(246, 242, 238, 0.96) 0%,
+            rgba(246, 242, 238, 0.93) 34%,
+            rgba(246, 242, 238, 0.82) 54%,
+            rgba(238, 93, 91, 0.18) 68%,
+            rgba(238, 93, 91, 0.06) 100%
+        );
+}
+
+.planet-info-page.pokemon-theme .planet-hero-label {
+    color: #111827;
+}
+
+.planet-info-page.pokemon-theme .planet-hero-title {
+    color: #111827;
+    text-shadow: 0 8px 24px rgba(255, 255, 255, 0.35);
+}
+
+.planet-info-page.pokemon-theme .planet-hero-subtitle {
+    color: rgba(17, 24, 39, 0.88);
+}
+
+.planet-info-page.pokemon-theme .planet-stats-card {
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(17, 24, 39, 0.12);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 20px 45px rgba(17, 24, 39, 0.12);
+}
+
+.planet-info-page.pokemon-theme .planet-stat {
+    background: rgba(17, 24, 39, 0.04);
+}
+
+.planet-info-page.pokemon-theme .planet-stat-label {
+    color: #d62828;
+}
+
+.planet-info-page.pokemon-theme .planet-stat-value,
+.planet-info-page.pokemon-theme .planet-description,
+.planet-info-page.pokemon-theme .auth-hint {
+    color: #111827;
+}
+
+.planet-info-page.pokemon-theme .planet-description {
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid rgba(17, 24, 39, 0.1);
+    box-shadow: 0 16px 32px rgba(17, 24, 39, 0.1);
+}
+
 /* =============================================
    AUTH PAGES (Create Account / Login)
    ============================================= */
@@ -742,6 +856,25 @@ body {
     pointer-events: none;
 }
 
+.auth-hero.pokemon-theme {
+    background-color: #f6f2ee;
+    background-image: url('/images/PokemonBackground.jpg');
+    background-position: center right;
+    background-size: cover;
+}
+
+.auth-hero.pokemon-theme::before {
+    background:
+        linear-gradient(
+            120deg,
+            rgba(246, 242, 238, 0.97) 0%,
+            rgba(246, 242, 238, 0.94) 42%,
+            rgba(246, 242, 238, 0.84) 60%,
+            rgba(238, 93, 91, 0.18) 76%,
+            rgba(238, 93, 91, 0.05) 100%
+        );
+}
+
 .auth-hero-content {
     position: relative;
     z-index: 2;
@@ -762,6 +895,13 @@ body {
     overflow: hidden;
 }
 
+.auth-hero.pokemon-theme .auth-card {
+    background: rgba(255, 255, 255, 0.88);
+    border: 1px solid rgba(17, 24, 39, 0.12);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 25px 60px rgba(17, 24, 39, 0.14);
+}
+
 .auth-card::before {
     content: '';
     position: absolute;
@@ -775,6 +915,10 @@ body {
                 var(--lcars-blue) 70%,
                 transparent);
     opacity: 0.7;
+}
+
+.auth-hero.pokemon-theme .auth-card::before {
+    background: linear-gradient(90deg, transparent, #d62828 32%, #ffcb05 70%, transparent);
 }
 
 .auth-card-header {
@@ -791,6 +935,21 @@ body {
     letter-spacing: -0.01em;
     color: var(--text-primary);
     text-shadow: 0 0 40px rgba(255, 255, 255, 0.18);
+}
+
+.auth-hero.pokemon-theme .hero-eyebrow,
+.auth-hero.pokemon-theme .auth-title,
+.auth-hero.pokemon-theme .auth-subtitle,
+.auth-hero.pokemon-theme .auth-hint,
+.auth-hero.pokemon-theme .auth-alt {
+    color: #111827;
+    text-shadow: none;
+}
+
+.auth-hero.pokemon-theme .auth-subtitle,
+.auth-hero.pokemon-theme .auth-hint,
+.auth-hero.pokemon-theme .auth-alt {
+    opacity: 0.82;
 }
 
 .auth-subtitle {
@@ -824,6 +983,10 @@ body {
     opacity: 0.95;
 }
 
+.auth-hero.pokemon-theme .auth-label {
+    color: #d62828;
+}
+
 .auth-input {
     width: 100%;
     padding: 12px 16px;
@@ -839,15 +1002,31 @@ body {
     transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
 }
 
+.auth-hero.pokemon-theme .auth-input {
+    background: rgba(255, 255, 255, 0.96);
+    border: 1px solid rgba(17, 24, 39, 0.18);
+    color: #111827;
+}
+
 .auth-input::placeholder {
     color: rgba(255, 255, 255, 0.4);
     font-weight: 300;
+}
+
+.auth-hero.pokemon-theme .auth-input::placeholder {
+    color: rgba(17, 24, 39, 0.45);
 }
 
 .auth-input:focus {
     border-color: var(--lcars-gold);
     background: rgba(255, 255, 255, 0.12);
     box-shadow: 0 0 0 3px rgba(245, 166, 35, 0.15);
+}
+
+.auth-hero.pokemon-theme .auth-input:focus {
+    border-color: #d62828;
+    background: #ffffff;
+    box-shadow: 0 0 0 4px rgba(255, 203, 5, 0.24);
 }
 
 .auth-hint {
@@ -982,6 +1161,20 @@ body {
     opacity: 0;
 }
 
+.hero-section.theme-pokemon .hero-eyebrow {
+    color: #111827;
+    opacity: 0.9;
+}
+
+.hero-section.theme-pokemon .hero-title {
+    color: #111827;
+    text-shadow: 0 2px 12px rgba(255, 255, 255, 0.18);
+}
+
+.hero-section.theme-pokemon .hero-subtitle {
+    color: rgba(17, 24, 39, 0.88);
+}
+
 /* ---- Theme toggle slider ---- */
 .theme-toggle {
     position: relative;
@@ -1068,4 +1261,3 @@ body {
 .hero-section.is-swapping .hero-subtitle {
     opacity: 0;
 }
-
